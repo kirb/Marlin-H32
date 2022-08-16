@@ -119,3 +119,10 @@ Temporary Items
 # Support for Project snippet scope
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,macos,visualstudiocode
+
+arm-gnu-toolchain-*/
+*.o
+*.d
+firmware.bin
+firmware.elf
+firmware.map
