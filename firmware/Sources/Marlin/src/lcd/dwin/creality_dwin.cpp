@@ -97,7 +97,7 @@ using namespace std;
 
 #define MACHINE_SIZE STRINGIFY(X_BED_SIZE) "x" STRINGIFY(Y_BED_SIZE) "x" STRINGIFY(Z_MAX_POS)
 
-#define CORP_WEBSITE_E "github.com/alexqzd"
+#define CORP_WEBSITE_E "github.com/kirb/Marlin-H32"
 
 #define BUILD_NUMBER "1.3.6 Beta 2"
 
