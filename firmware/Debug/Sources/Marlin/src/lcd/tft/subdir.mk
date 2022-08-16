@@ -5,7 +5,6 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../Sources/Marlin/src/lcd/tft/canvas.cpp \
-../Sources/Marlin/src/lcd/tft/draw_media_select.cpp \
 ../Sources/Marlin/src/lcd/tft/tft.cpp \
 ../Sources/Marlin/src/lcd/tft/tft_image.cpp \
 ../Sources/Marlin/src/lcd/tft/tft_queue.cpp \
@@ -18,7 +17,6 @@ CPP_SRCS += \
 
 OBJS += \
 ./Sources/Marlin/src/lcd/tft/canvas.o \
-./Sources/Marlin/src/lcd/tft/draw_media_select.o \
 ./Sources/Marlin/src/lcd/tft/tft.o \
 ./Sources/Marlin/src/lcd/tft/tft_image.o \
 ./Sources/Marlin/src/lcd/tft/tft_queue.o \
@@ -31,7 +29,6 @@ OBJS += \
 
 CPP_DEPS += \
 ./Sources/Marlin/src/lcd/tft/canvas.d \
-./Sources/Marlin/src/lcd/tft/draw_media_select.d \
 ./Sources/Marlin/src/lcd/tft/tft.d \
 ./Sources/Marlin/src/lcd/tft/tft_image.d \
 ./Sources/Marlin/src/lcd/tft/tft_queue.d \

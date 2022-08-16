@@ -29,7 +29,7 @@
   * @brief    Rotary encoder functions
   ****************************************************************************/
 
-#include "../../inc/MarlinConfig.h"
+#include "../../../inc/MarlinConfig.h"
 
 /*********************** Encoder Set ***********************/
 

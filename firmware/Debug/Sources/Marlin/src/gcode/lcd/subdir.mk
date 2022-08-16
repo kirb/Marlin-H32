@@ -8,7 +8,6 @@ CPP_SRCS += \
 ../Sources/Marlin/src/gcode/lcd/M117.cpp \
 ../Sources/Marlin/src/gcode/lcd/M145.cpp \
 ../Sources/Marlin/src/gcode/lcd/M250.cpp \
-../Sources/Marlin/src/gcode/lcd/M251.cpp \
 ../Sources/Marlin/src/gcode/lcd/M300.cpp \
 ../Sources/Marlin/src/gcode/lcd/M414.cpp \
 ../Sources/Marlin/src/gcode/lcd/M73.cpp \
@@ -19,7 +18,6 @@ OBJS += \
 ./Sources/Marlin/src/gcode/lcd/M117.o \
 ./Sources/Marlin/src/gcode/lcd/M145.o \
 ./Sources/Marlin/src/gcode/lcd/M250.o \
-./Sources/Marlin/src/gcode/lcd/M251.o \
 ./Sources/Marlin/src/gcode/lcd/M300.o \
 ./Sources/Marlin/src/gcode/lcd/M414.o \
 ./Sources/Marlin/src/gcode/lcd/M73.o \
@@ -30,7 +28,6 @@ CPP_DEPS += \
 ./Sources/Marlin/src/gcode/lcd/M117.d \
 ./Sources/Marlin/src/gcode/lcd/M145.d \
 ./Sources/Marlin/src/gcode/lcd/M250.d \
-./Sources/Marlin/src/gcode/lcd/M251.d \
 ./Sources/Marlin/src/gcode/lcd/M300.d \
 ./Sources/Marlin/src/gcode/lcd/M414.d \
 ./Sources/Marlin/src/gcode/lcd/M73.d \

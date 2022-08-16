@@ -75,8 +75,8 @@
 #endif
 
 #if ENABLED(DWIN_CREALITY_LCD)
-  #include "lcd/dwin/creality_dwin.h"
-  #include "lcd/dwin/rotary_encoder.h"
+  #include "lcd/dwin/e3v2/dwin.h"
+  #include "lcd/dwin/e3v2/rotary_encoder.h"
 #endif
 
 #if ENABLED(EXTENSIBLE_UI)
@@ -234,10 +234,6 @@
 
 #if HAS_DRIVER_SAFE_POWER_PROTECT
   #include "feature/stepper_driver_safety.h"
-#endif
-
-#if ENABLED(PSU_CONTROL)
-  #include "feature/power.h"
 #endif
 
 PGMSTR(M112_KILL_STR, "M112 Shutdown");
@@ -846,7 +842,7 @@ void idle(bool no_stepper_sleep/*=false*/) {
   TERN_(USE_BEEPER, buzzer.tick());
 
   // Handle UI input / draw events
-  ui.update();
+  TERN(DWIN_CREALITY_LCD, DWIN_Update(), ui.update());
 
   // Run i2c Position Encoders
   #if ENABLED(I2C_POSITION_ENCODERS)
@@ -868,7 +864,6 @@ void idle(bool no_stepper_sleep/*=false*/) {
       TERN_(AUTO_REPORT_TEMPERATURES, thermalManager.auto_reporter.tick());
       TERN_(AUTO_REPORT_SD_STATUS, card.auto_reporter.tick());
       TERN_(AUTO_REPORT_POSITION, position_auto_reporter.tick());
-      TERN_(BUFFER_MONITORING, queue.auto_report_buffer_statistics());
     }
   #endif
 
@@ -937,7 +932,7 @@ void minkill(const bool steppers_off/*=false*/) {
   // Power off all steppers (for M112) or just the E steppers
   steppers_off ? disable_all_steppers() : disable_e_steppers();
 
-  TERN_(PSU_CONTROL, powerManager.power_off());
+  TERN_(PSU_CONTROL, PSU_OFF());
 
   TERN_(HAS_SUICIDE, suicide());
 
@@ -1131,6 +1126,10 @@ inline void tmc_standby_setup() {
  *  - Set Marlin to RUNNING State
  */
 void setup() {
+  #ifdef FASTIO_INIT
+    FASTIO_INIT();
+  #endif
+
   #ifdef BOARD_PREINIT
     BOARD_PREINIT(); // Low-level init (before serial init)
   #endif
@@ -1215,10 +1214,10 @@ void setup() {
   SETUP_RUN(HAL_init());
 
   // Init and disable SPI thermocouples; this is still needed
-  #if TEMP_SENSOR_0_IS_MAX_TC || (TEMP_SENSOR_REDUNDANT_IS_MAX_TC && REDUNDANT_TEMP_MATCH(SOURCE, E0))
+  #if TEMP_SENSOR_0_IS_MAX_TC || (TEMP_SENSOR_REDUNDANT_IS_MAX_TC && TEMP_SENSOR_REDUNDANT_SOURCE == 0)
     OUT_WRITE(TEMP_0_CS_PIN, HIGH);  // Disable
   #endif
-  #if TEMP_SENSOR_1_IS_MAX_TC || (TEMP_SENSOR_REDUNDANT_IS_MAX_TC && REDUNDANT_TEMP_MATCH(SOURCE, E1))
+  #if TEMP_SENSOR_1_IS_MAX_TC || (TEMP_SENSOR_REDUNDANT_IS_MAX_TC && TEMP_SENSOR_REDUNDANT_SOURCE == 1)
     OUT_WRITE(TEMP_1_CS_PIN, HIGH);
   #endif
 
@@ -1236,7 +1235,8 @@ void setup() {
 
   #if ENABLED(PSU_CONTROL)
     SETUP_LOG("PSU_CONTROL");
-    powerManager.init();
+    powersupply_on = ENABLED(PSU_DEFAULT_OFF);
+    if (ENABLED(PSU_DEFAULT_OFF)) PSU_OFF(); else PSU_ON();
   #endif
 
   #if ENABLED(POWER_LOSS_RECOVERY)
@@ -1309,12 +1309,20 @@ void setup() {
   // UI must be initialized before EEPROM
   // (because EEPROM code calls the UI).
 
-  SETUP_RUN(ui.init());
-  #if BOTH(HAS_WIRED_LCD, SHOW_BOOTSCREEN)
-    SETUP_RUN(ui.show_bootscreen());
-    const millis_t bootscreen_ms = millis();
+  #if ENABLED(DWIN_CREALITY_LCD)
+    delay(800);   // Required delay (since boot?)
+    SERIAL_ECHOPGM("\nDWIN handshake ");
+    if (DWIN_Handshake()) SERIAL_ECHOLNPGM("ok."); else SERIAL_ECHOLNPGM("error.");
+    DWIN_Frame_SetDir(1); // Orientation 90°
+    DWIN_UpdateLCD();     // Show bootscreen (first image)
+  #else
+    SETUP_RUN(ui.init());
+    #if BOTH(HAS_WIRED_LCD, SHOW_BOOTSCREEN)
+      SETUP_RUN(ui.show_bootscreen());
+      const millis_t bootscreen_ms = millis();
+    #endif
+    SETUP_RUN(ui.reset_status());     // Load welcome message early. (Retained if no errors exist.)
   #endif
-  SETUP_RUN(ui.reset_status());     // Load welcome message early. (Retained if no errors exist.)
 
   #if PIN_EXISTS(SAFE_POWER)
     #if HAS_DRIVER_SAFE_POWER_PROTECT
@@ -1580,7 +1588,15 @@ void setup() {
     SERIAL_ECHO_TERNARY(err, "BL24CXX Check ", "failed", "succeeded", "!\n");
   #endif
 
-  #if HAS_SERVICE_INTERVALS
+  #if ENABLED(DWIN_CREALITY_LCD)
+    Encoder_Configuration();
+    HMI_Init();
+    DWIN_JPG_CacheTo1(Language_English);
+    HMI_StartFrame(true);
+    DWIN_StatusChanged(GET_TEXT(WELCOME_MSG));
+  #endif
+
+  #if HAS_SERVICE_INTERVALS && DISABLED(DWIN_CREALITY_LCD)
     ui.reset_status(true);  // Show service messages or keep current status
   #endif
 

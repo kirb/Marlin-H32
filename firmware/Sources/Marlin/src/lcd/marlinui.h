@@ -239,16 +239,20 @@ public:
     static void media_changed(const uint8_t old_stat, const uint8_t stat);
   #endif
 
+  #if ENABLED(DWIN_CREALITY_LCD)
+    static void refresh();
+  #else
   FORCE_INLINE static void refresh() {
     TERN_(HAS_WIRED_LCD, refresh(LCDVIEW_CLEAR_CALL_REDRAW));
   }
-
-  #if HAS_LCD_BRIGHTNESS
-    static uint8_t brightness;
-    static bool backlight;
-    static void set_brightness(const uint8_t value);
-    FORCE_INLINE static void refresh_brightness() { set_brightness(brightness); }
   #endif
+
+  // #if HAS_LCD_BRIGHTNESS
+  //   static uint8_t brightness;
+  //   static bool backlight;
+  //   static void set_brightness(const uint8_t value);
+  //   FORCE_INLINE static void refresh_brightness() { set_brightness(brightness); }
+  // #endif
 
   #if HAS_WIRED_LCD
     static bool detected();
@@ -334,10 +338,6 @@ public:
     static void pause_print();
     static void resume_print();
     static void flow_fault();
-
-    #if BOTH(PSU_CONTROL, PS_OFF_CONFIRM)
-      static void poweroff();
-    #endif
 
     #if HAS_WIRED_LCD
 

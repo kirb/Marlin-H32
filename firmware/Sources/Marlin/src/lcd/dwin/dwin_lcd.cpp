@@ -34,7 +34,7 @@
 
 #include "../../inc/MarlinConfig.h"
 
-#include "dwin.h"
+#include "dwin_lcd.h"
 #include <string.h> // for memset
 
 //#define DEBUG_OUT 1
@@ -65,7 +65,7 @@ inline void DWIN_Long(size_t &i, const uint32_t lval) {
   DWIN_SendBuf[++i] = lval & 0xFF;
 }
 
-inline void DWIN_String(size_t &i, const char * const string) {
+inline void DWIN_String(size_t &i, char * const string) {
   const size_t len = _MIN(sizeof(DWIN_SendBuf) - i, strlen(string));
   memcpy(&DWIN_SendBuf[i+1], string, len);
   i += len;
@@ -95,7 +95,7 @@ bool DWIN_Handshake(void) {
   #endif
   LCD_SERIAL.begin(LCD_BAUDRATE);
   const millis_t serial_connect_timeout = millis() + 1000UL;
-  while (!LCD_SERIAL && PENDING(millis(), serial_connect_timeout)) { /*nada*/ }
+  while (!LCD_SERIAL.connected() && PENDING(millis(), serial_connect_timeout)) { /*nada*/ }
 
   size_t i = 0;
   DWIN_Byte(i, 0x00);
@@ -127,7 +127,7 @@ bool DWIN_Handshake(void) {
 void DWIN_Backlight_SetLuminance(const uint8_t luminance) {
   size_t i = 0;
   DWIN_Byte(i, 0x30);
-  DWIN_Byte(i, luminance);
+  DWIN_Byte(i, _MAX(luminance, 0x1F));
   DWIN_Send(i);
 }
 
@@ -161,14 +161,12 @@ void DWIN_Frame_Clear(const uint16_t color) {
 }
 
 // Draw a point
-//  color: Pixel segment color
 //  width: point width   0x01-0x0F
 //  height: point height 0x01-0x0F
 //  x,y: upper left point
-void DWIN_Draw_Point(uint16_t color, uint8_t width, uint8_t height, uint16_t x, uint16_t y) {
+void DWIN_Draw_Point(uint8_t width, uint8_t height, uint16_t x, uint16_t y) {
   size_t i = 0;
   DWIN_Byte(i, 0x02);
-  DWIN_Word(i, color);
   DWIN_Byte(i, width);
   DWIN_Byte(i, height);
   DWIN_Word(i, x);
@@ -209,20 +207,6 @@ void DWIN_Draw_Rectangle(uint8_t mode, uint16_t color,
   DWIN_Send(i);
 }
 
-//Color: color
-//x/y: Upper-left coordinate of the first pixel
-void DWIN_Draw_DegreeSymbol(uint16_t Color, uint16_t x, uint16_t y)	{
-  	DWIN_Draw_Point(Color, 1, 1, x + 1, y);		               	
-  	DWIN_Draw_Point(Color, 1, 1, x + 2, y);	
-  	DWIN_Draw_Point(Color, 1, 1, x, y + 1);
-		DWIN_Draw_Point(Color, 1, 1, x + 3, y + 1);
-  	DWIN_Draw_Point(Color, 1, 1, x, y + 2);
-		DWIN_Draw_Point(Color, 1, 1, x + 3, y + 2);
-    DWIN_Draw_Point(Color, 1, 1, x + 1, y + 3);		               	
-  	DWIN_Draw_Point(Color, 1, 1, x + 2, y + 3);	
-}
-
-
 // Move a screen area
 //  mode: 0, circle shift; 1, translation
 //  dir: 0=left, 1=right, 2=up, 3=down
@@ -255,7 +239,7 @@ void DWIN_Frame_AreaMove(uint8_t mode, uint8_t dir, uint16_t dis,
 //  x/y: Upper-left coordinate of the string
 //  *string: The string
 void DWIN_Draw_String(bool widthAdjust, bool bShow, uint8_t size,
-                      uint16_t color, uint16_t bColor, uint16_t x, uint16_t y, const char * string) {
+                      uint16_t color, uint16_t bColor, uint16_t x, uint16_t y, char *string) {
   size_t i = 0;
   DWIN_Byte(i, 0x11);
   // Bit 7: widthAdjust
@@ -439,45 +423,6 @@ void DWIN_ICON_AnimationControl(uint16_t state) {
   size_t i = 0;
   DWIN_Byte(i, 0x28);
   DWIN_Word(i, state);
-  DWIN_Send(i);
-}
-
-void DWIN_Save_JPEG_in_SRAM(uint8_t *data, uint16_t size, uint16_t dest_addr) {
-  const uint8_t max_data_size = 128;
-  uint16_t pending_data = size;
-
-  uint8_t iter = 0;
-  
-  while (pending_data > 0) {
-    uint16_t data_to_send = max_data_size;
-    if (pending_data - max_data_size <= 0)
-        data_to_send = pending_data;
-    
-    uint16_t from_i = iter * max_data_size;
-    uint16_t to_i = from_i + data_to_send - 1;
-
-    size_t i = 0;
-    DWIN_Byte(i, 0x31);
-    DWIN_Byte(i, 0x5A);
-    DWIN_Word(i, dest_addr+(iter * max_data_size));
-    ++i;
-    LOOP_L_N(n, i) { LCD_SERIAL.write(DWIN_SendBuf[n]); delayMicroseconds(1); }
-    for (uint16_t n=from_i; n<=to_i; n++) { LCD_SERIAL.write(*(data + n)); delayMicroseconds(1);}
-    LOOP_L_N(n, 4) { LCD_SERIAL.write(DWIN_BufTail[n]); delayMicroseconds(1); }
-    pending_data -= data_to_send;
-    iter++;
-  } 
-}
-
-void DWIN_SRAM_Memory_Icon_Display(uint16_t x, uint16_t y, uint16_t source_addr) {
-  size_t i = 0;
-  DWIN_Byte(i, 0x24);
-  NOMORE(x, DWIN_WIDTH - 1);
-  NOMORE(y, DWIN_HEIGHT - 1); // -- ozy -- srl
-  DWIN_Word(i, x);
-  DWIN_Word(i, y);
-  DWIN_Byte(i, 0x80);
-  DWIN_Word(i, source_addr);
   DWIN_Send(i);
 }
 

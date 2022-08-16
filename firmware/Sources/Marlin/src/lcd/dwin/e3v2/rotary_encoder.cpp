@@ -28,20 +28,18 @@
  * @brief    Rotary encoder functions
  *****************************************************************************/
 
-#include "../../inc/MarlinConfigPre.h"
+#include "../../../inc/MarlinConfigPre.h"
 
 #if ENABLED(DWIN_CREALITY_LCD)
 
 #include "rotary_encoder.h"
-#include "../buttons.h"
+#include "../../buttons.h"
 
-#include "../../MarlinCore.h"
-#include "../marlinui.h"
-#include "../../HAL/shared/Delay.h"
+#include "../../../MarlinCore.h"
+#include "../../../HAL/shared/Delay.h"
 
 #if HAS_BUZZER
-  #include "../../libs/buzzer.h"
-  #include "creality_dwin.h"
+  #include "../../../libs/buzzer.h"
 #endif
 
 #include <stdlib.h>
@@ -55,9 +53,9 @@ ENCODER_Rate EncoderRate;
 // Buzzer
 void Encoder_tick() {
   #if PIN_EXISTS(BEEPER)
-    if (CrealityDWIN.eeprom_settings.beeperenable) {
-      BUZZ(30, 880);
-    }
+    WRITE(BEEPER_PIN, HIGH);
+    delay(10);
+    WRITE(BEEPER_PIN, LOW);
   #endif
 }
 
@@ -95,12 +93,9 @@ ENCODER_DiffState Encoder_ReceiveAnalyze() {
       #if PIN_EXISTS(LCD_LED)
         //LED_Action();
       #endif
-      if (!ui.backlight) {
-        ui.refresh_brightness();
-      }
-      else {
-        return ENCODER_DIFF_ENTER;
-      }
+      const bool was_waiting = wait_for_user;
+      wait_for_user = false;
+      return was_waiting ? ENCODER_DIFF_NO : ENCODER_DIFF_ENTER;
     }
     else return ENCODER_DIFF_NO;
   }
@@ -127,8 +122,8 @@ ENCODER_DiffState Encoder_ReceiveAnalyze() {
   }
 
   if (abs(temp_diff) >= ENCODER_PULSES_PER_STEP) {
-    if (temp_diff > 0) temp_diffState = ENCODER_DIFF_CCW;
-    else temp_diffState = ENCODER_DIFF_CW;
+    if (temp_diff > 0) temp_diffState = ENCODER_DIFF_CW;
+    else temp_diffState = ENCODER_DIFF_CCW;
 
     #if ENABLED(ENCODER_RATE_MULTIPLIER)
 

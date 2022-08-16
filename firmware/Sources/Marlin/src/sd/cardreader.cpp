@@ -31,6 +31,10 @@
 #include "../MarlinCore.h"
 #include "../lcd/marlinui.h"
 
+#if ENABLED(DWIN_CREALITY_LCD)
+  #include "../lcd/dwin/e3v2/dwin.h"
+#endif
+
 #include "../module/planner.h"        // for synchronize
 #include "../module/printcounter.h"
 #include "../gcode/queue.h"
@@ -560,7 +564,8 @@ void CardReader::startOrResumeFilePrinting() {
 //
 void CardReader::endFilePrintNow(TERN_(SD_RESORT, const bool re_sort/*=false*/)) {
   TERN_(ADVANCED_PAUSE_FEATURE, did_pause_print = 0);
-  flag.sdprinting = flag.abort_sd_printing = false;
+  TERN_(DWIN_CREALITY_LCD, HMI_flag.print_finish = flag.sdprinting);
+  flag.abort_sd_printing = false;
   if (isFileOpen()) file.close();
   TERN_(SD_RESORT, if (re_sort) presort());
 }
@@ -934,7 +939,7 @@ const char* CardReader::diveToFile(const bool update_cwd, SdFile* &inDirPtr, con
 
   while (atom_ptr) {
     // Find next subdirectory delimiter
-    const char * const name_end = strchr(atom_ptr, '/');
+    char * const name_end = strchr(atom_ptr, '/');
 
     // Last atom in the path? Item found.
     if (name_end <= atom_ptr) break;

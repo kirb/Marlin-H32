@@ -26,10 +26,8 @@
  * Rewrite and Extui Port by Jacob Myers
  */
 
-#include "dwin.h"
-#include "rotary_encoder.h"
-#include "../../libs/BL24CXX.h"
-#include "../../inc/MarlinConfigPre.h"
+#include "e3v2/dwin.h"
+#include "e3v2/rotary_encoder.h"
 
 enum processID : uint8_t {
   Main, Print, Menu, Value, Option, File, Popup, Confirm, Wait
@@ -337,7 +335,7 @@ public:
   #if ENABLED(AUTO_BED_LEVELING_UBL)
     void Draw_Bed_Mesh(int16_t selected = -1, uint8_t gridline_width = 1, uint16_t padding_x = 8, uint16_t padding_y_top = 40 + 53 - 7);
     void Set_Mesh_Viewer_Status();
-  #endif
+#endif
 
   const char * Get_Menu_Title(uint8_t menu);
   uint8_t Get_Menu_Size(uint8_t menu);

@@ -31,4 +31,5 @@ class ConfirmUserRequestAlertBox : public AlertDialogBox {
     static bool onTouchEnd(uint8_t);
     static void hide();
     static void show(const char*);
+    static void onIdle();
 };

@@ -36,20 +36,20 @@
 #include "creality_dwin.h"
 #include "../marlinui.h"
 
-uint8_t MarlinUI::brightness = DEFAULT_LCD_BRIGHTNESS;
-bool MarlinUI::backlight = true;
+// uint8_t MarlinUI::brightness = DEFAULT_LCD_BRIGHTNESS;
+// bool MarlinUI::backlight = true;
 
-void MarlinUI::set_brightness(const uint8_t value) {
-  if (value == 0) {
-    backlight = false;
-    DWIN_Backlight_SetLuminance(0);
-  }
-  else {
-    backlight = true;
-    brightness = constrain(value, MIN_LCD_BRIGHTNESS, MAX_LCD_BRIGHTNESS);
-    DWIN_Backlight_SetLuminance(brightness);
-  }
-}
+// void MarlinUI::set_brightness(const uint8_t value) {
+//   if (value == 0) {
+//     backlight = false;
+//     DWIN_Backlight_SetLuminance(0);
+//   }
+//   else {
+//     backlight = true;
+//     brightness = constrain(value, MIN_LCD_BRIGHTNESS, MAX_LCD_BRIGHTNESS);
+//     DWIN_Backlight_SetLuminance(brightness);
+//   }
+// }
 
 #if ENABLED(ADVANCED_PAUSE_FEATURE)
   void MarlinUI::pause_show_message(const PauseMessage message, const PauseMode mode/*=PAUSE_MODE_SAME*/, const uint8_t extruder/*=active_extruder*/) {

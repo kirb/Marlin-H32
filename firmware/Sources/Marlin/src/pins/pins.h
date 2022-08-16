@@ -540,7 +540,7 @@
 #elif MB(CHITU3D_V9)
   #include "stm32f1/pins_CHITU3D_V9.h"          // STM32F1                                env:chitu_f103 env:chitu_f103_maple
 #elif MB(CREALITY_V4)
-  #include "stm32f1/pins_CREALITY_V4.h"         // STM32F1                                env:STM32F103RET6_creality env:STM32F103RET6_creality_maple env:STM32F103RET6_voxelab_aquila_G32 env:STM32F103RET6_voxelab_aquila_N32
+  #include "stm32f1/pins_CREALITY_V4.h"         // STM32F1                                env:STM32F103RET6_creality env:STM32F103RET6_creality_maple
 #elif MB(CREALITY_V4210)
   #include "stm32f1/pins_CREALITY_V4210.h"      // STM32F1                                env:STM32F103RET6_creality env:STM32F103RET6_creality_maple
 #elif MB(CREALITY_V427)
@@ -612,11 +612,11 @@
 #elif MB(VAKE403D)
   #include "stm32f4/pins_VAKE403D.h"            // STM32F4
 #elif MB(FYSETC_S6)
-  #include "stm32f4/pins_FYSETC_S6.h"           // STM32F4                                env:FYSETC_S6
+  #include "stm32f4/pins_FYSETC_S6.h"           // STM32F4                                env:FYSETC_S6 env:FYSETC_S6_8000
 #elif MB(FYSETC_S6_V2_0)
-  #include "stm32f4/pins_FYSETC_S6_V2_0.h"      // STM32F4                                env:FYSETC_S6
+  #include "stm32f4/pins_FYSETC_S6_V2_0.h"      // STM32F4                                env:FYSETC_S6 env:FYSETC_S6_8000
 #elif MB(FYSETC_SPIDER)
-  #include "stm32f4/pins_FYSETC_SPIDER.h"       // STM32F4                                env:FYSETC_S6
+  #include "stm32f4/pins_FYSETC_SPIDER.h"       // STM32F4                                env:FYSETC_S6 env:FYSETC_S6_8000
 #elif MB(FLYF407ZG)
   #include "stm32f4/pins_FLYF407ZG.h"           // STM32F4                                env:FLYF407ZG
 #elif MB(MKS_ROBIN2)
@@ -681,7 +681,7 @@
 //
 
 #elif MB(LINUX_RAMPS)
-  #include "linux/pins_RAMPS_LINUX.h"           // Native or Simulation                   lin:linux_native mac:simulator_macos_debug mac:simulator_macos_release win:simulator_windows lin:simulator_linux_debug lin:simulator_linux_release
+  #include "linux/pins_RAMPS_LINUX.h"           // Linux                                  env:linux_native
 
 #else
 

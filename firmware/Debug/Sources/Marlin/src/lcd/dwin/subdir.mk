@@ -6,20 +6,23 @@
 CPP_SRCS += \
 ../Sources/Marlin/src/lcd/dwin/creality_dwin.cpp \
 ../Sources/Marlin/src/lcd/dwin/creality_marlinui.cpp \
-../Sources/Marlin/src/lcd/dwin/dwin.cpp \
-../Sources/Marlin/src/lcd/dwin/rotary_encoder.cpp 
+../Sources/Marlin/src/lcd/dwin/dwin_lcd.cpp \
+../Sources/Marlin/src/lcd/dwin/e3v2/dwin.cpp \
+../Sources/Marlin/src/lcd/dwin/e3v2/rotary_encoder.cpp
 
 OBJS += \
 ./Sources/Marlin/src/lcd/dwin/creality_dwin.o \
 ./Sources/Marlin/src/lcd/dwin/creality_marlinui.o \
-./Sources/Marlin/src/lcd/dwin/dwin.o \
-./Sources/Marlin/src/lcd/dwin/rotary_encoder.o 
+./Sources/Marlin/src/lcd/dwin/dwin_lcd.o \
+./Sources/Marlin/src/lcd/dwin/e3v2/dwin.o \
+./Sources/Marlin/src/lcd/dwin/e3v2/rotary_encoder.o
 
 CPP_DEPS += \
 ./Sources/Marlin/src/lcd/dwin/creality_dwin.d \
 ./Sources/Marlin/src/lcd/dwin/creality_marlinui.d \
-./Sources/Marlin/src/lcd/dwin/dwin.d \
-./Sources/Marlin/src/lcd/dwin/rotary_encoder.d 
+./Sources/Marlin/src/lcd/dwin/dwin_lcd.d \
+./Sources/Marlin/src/lcd/dwin/e3v2/dwin.d \
+./Sources/Marlin/src/lcd/dwin/e3v2/rotary_encoder.d
 
 
 # Each subdirectory must supply rules for building sources it contributes

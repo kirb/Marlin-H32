@@ -1053,8 +1053,6 @@ void tool_change(const uint8_t new_tool, bool no_move/*=false*/) {
         first_tool_is_primed = true;
         TERN_(TOOLCHANGE_FS_INIT_BEFORE_SWAP, toolchange_extruder_ready[old_tool] = true); // Primed and initialized
       }
-    #else
-      constexpr bool first_tool_is_primed = true;
     #endif
 
     if (new_tool != old_tool || TERN0(PARKING_EXTRUDER, extruder_parked)) { // PARKING_EXTRUDER may need to attach old_tool when homing

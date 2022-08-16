@@ -196,7 +196,7 @@ bool load_filament(const_float_t slow_load_length/*=0*/, const_float_t fast_load
       host_prompt_do(PROMPT_USER_CONTINUE, PSTR("Load Filament T"), tool, CONTINUE_STR);
     #endif
 
-    TERN_(EXTENSIBLE_UI, ExtUI::onUserConfirmRequired_P(GET_TEXT(MSG_FILAMENT_CHANGE_INSERT)));
+    TERN_(EXTENSIBLE_UI, ExtUI::onUserConfirmRequired_P(PSTR("Load Filament")));
 
     while (wait_for_user) {
       impatient_beep(max_beep_count);
@@ -262,8 +262,11 @@ bool load_filament(const_float_t slow_load_length/*=0*/, const_float_t fast_load
           // Show "Purge More" / "Resume" menu and wait for reply
           KEEPALIVE_STATE(PAUSED_FOR_USER);
           wait_for_user = false;
-          ui.pause_show_message(PAUSE_MESSAGE_OPTION);
-          pause_menu_response = PAUSE_RESPONSE_WAIT_FOR;
+          #if HAS_LCD_MENU
+            ui.pause_show_message(PAUSE_MESSAGE_OPTION); // Also sets PAUSE_RESPONSE_WAIT_FOR
+          #else
+            pause_menu_response = PAUSE_RESPONSE_WAIT_FOR;
+          #endif
           while (pause_menu_response == PAUSE_RESPONSE_WAIT_FOR) idle_no_sleep();
         }
       #endif
@@ -494,7 +497,7 @@ void wait_for_confirmation(const bool is_reload/*=false*/, const int8_t max_beep
   // Wait for filament insert by user and press button
   KEEPALIVE_STATE(PAUSED_FOR_USER);
   TERN_(HOST_PROMPT_SUPPORT, host_prompt_do(PROMPT_USER_CONTINUE, GET_TEXT(MSG_NOZZLE_PARKED), CONTINUE_STR));
-  TERN_(EXTENSIBLE_UI, ExtUI::onUserConfirmRequired_P(is_reload ? GET_TEXT(MSG_FILAMENT_CHANGE_INSERT) : GET_TEXT(MSG_NOZZLE_PARKED)));
+  TERN_(EXTENSIBLE_UI, ExtUI::onUserConfirmRequired_P(GET_TEXT(MSG_NOZZLE_PARKED)));
   wait_for_user = true;    // LCD click or M108 will clear this
   while (wait_for_user) {
     impatient_beep(max_beep_count);
@@ -532,8 +535,8 @@ void wait_for_confirmation(const bool is_reload/*=false*/, const int8_t max_beep
       const millis_t nozzle_timeout = SEC_TO_MS(PAUSE_PARK_NOZZLE_TIMEOUT);
 
       HOTEND_LOOP() thermalManager.heater_idle[e].start(nozzle_timeout);
-      TERN_(HOST_PROMPT_SUPPORT, host_prompt_do(PROMPT_USER_CONTINUE, GET_TEXT(MSG_REHEATDONE), CONTINUE_STR));
-      TERN_(EXTENSIBLE_UI, ExtUI::onUserConfirmRequired_P(GET_TEXT(MSG_REHEATDONE)));
+      TERN_(HOST_PROMPT_SUPPORT, host_prompt_do(PROMPT_USER_CONTINUE, PSTR("Reheat Done"), CONTINUE_STR));
+      TERN_(EXTENSIBLE_UI, ExtUI::onUserConfirmRequired_P(PSTR("Reheat finished.")));
       wait_for_user = true;
       nozzle_timed_out = false;
 

@@ -1,9 +1,9 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (C) 2016 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
- * Copyright (C) 2011 Camiel Gubbels / Erik van der Zalm
+ * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,36 +19,56 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
+#pragma once
 
 /**
- * CREALITY (STM32F103) board pin assignments
+ * Creality 4.2.x (STM32F103RET6) board pin assignments
  */
 
+// #include "env_validate.h"
 #ifndef HC32F46x
   #error "Oops! Select an HC32F46x board in 'options > c/c++->defines.'"
 #endif
 
 #if HOTENDS > 1 || E_STEPPERS > 1
-  #error "CREALITY supports up to 1 hotends / E-steppers. Comment out this line to continue."
+  #error "Creality V4 only supports one hotend / E-stepper. Comment out this line to continue."
 #endif
 
-#define BOARD_INFO_NAME      "CREALITY V4"
-#define DEFAULT_MACHINE_NAME "Ender 3 V2"
+#ifndef BOARD_INFO_NAME
+  #define BOARD_INFO_NAME      "Creality V4"
+#endif
+#ifndef DEFAULT_MACHINE_NAME
+  #define DEFAULT_MACHINE_NAME "Ender 3 V2"
+#endif
+
+// #define BOARD_NO_NATIVE_USB
 
 //
 // EEPROM
 //
-
-#define IIC_BL24CXX_EEPROM                      // EEPROM on I2C-0 used only for display settings
-#if ENABLED(IIC_BL24CXX_EEPROM)
-#define IIC_EEPROM_SDA       PA11
-#define IIC_EEPROM_SCL       PA12
-    #define MARLIN_EEPROM_SIZE 0x800              // 2Kb (24C16)
+#if NO_EEPROM_SELECTED
+  #define IIC_BL24CXX_EEPROM                      // EEPROM on I2C-0
+  //#define SDCARD_EEPROM_EMULATION
 #endif
+
+#if ENABLED(IIC_BL24CXX_EEPROM)
+  #define IIC_EEPROM_SDA                    PA11
+  #define IIC_EEPROM_SCL                    PA12
+  #define MARLIN_EEPROM_SIZE               0x800  // 2Kb (24C16)
+#elif ENABLED(SDCARD_EEPROM_EMULATION)
+  #define MARLIN_EEPROM_SIZE               0x800  // 2Kb
+#endif
+
 //
 // Servos
 //
-#define SERVO0_PIN                          PB0  // BLTouch OUT
+#ifndef SERVO0_PIN
+  // #ifndef HAS_PIN_27_BOARD
+    #define SERVO0_PIN                      PB0   // BLTouch OUT
+  // #else
+    // #define SERVO0_PIN                      PC6
+  // #endif
+#endif
 
 //
 // Limit Switches
@@ -57,8 +77,10 @@
 #define Y_STOP_PIN                          PA6
 #define Z_STOP_PIN                          PA7
 
-//#define Z_PROBE_PIN                         PB1   // BLTouch IN
-#define Z_MIN_PROBE_PIN                     PB1   // BLTouch IN
+#ifndef Z_MIN_PROBE_PIN
+  #define Z_MIN_PROBE_PIN                   PB1   // BLTouch IN
+#endif
+
 //
 // Filament Runout Sensor
 //
@@ -69,21 +91,37 @@
 //
 // Steppers
 //
-#define X_ENABLE_PIN       PC3
-#define X_STEP_PIN         PC2
-#define X_DIR_PIN          PB9
+#define X_ENABLE_PIN                        PC3
+#ifndef X_STEP_PIN
+  #define X_STEP_PIN                        PC2
+#endif
+#ifndef X_DIR_PIN
+  #define X_DIR_PIN                         PB9
+#endif
 
-#define Y_ENABLE_PIN       PC3
-#define Y_STEP_PIN         PB8
-#define Y_DIR_PIN          PB7
+#define Y_ENABLE_PIN                        PC3
+#ifndef Y_STEP_PIN
+  #define Y_STEP_PIN                        PB8
+#endif
+#ifndef Y_DIR_PIN
+  #define Y_DIR_PIN                         PB7
+#endif
 
-#define Z_ENABLE_PIN       PC3
-#define Z_STEP_PIN         PB6
-#define Z_DIR_PIN          PB5
+#define Z_ENABLE_PIN                        PC3
+#ifndef Z_STEP_PIN
+  #define Z_STEP_PIN                        PB6
+#endif
+#ifndef Z_DIR_PIN
+  #define Z_DIR_PIN                         PB5
+#endif
 
-#define E0_ENABLE_PIN      PC3
-#define E0_STEP_PIN        PB4
-#define E0_DIR_PIN         PB3
+#define E0_ENABLE_PIN                       PC3
+#ifndef E0_STEP_PIN
+  #define E0_STEP_PIN                       PB4
+#endif
+#ifndef E0_DIR_PIN
+  #define E0_DIR_PIN                        PB3
+#endif
 
 //
 // Release PB4 (Y_ENABLE_PIN) from JTAG NRST role
@@ -94,9 +132,8 @@
 //
 // Temperature Sensors
 //
-#define TEMP_0_PIN		PC5   // HEATER1 ADC1_IN15
-#define TEMP_BED_PIN       PC4   // HOT BED ADC1_IN14
-#define  ADC_CHANNEL_COUNT 2u
+#define TEMP_0_PIN                          PC5   // TH1
+#define TEMP_BED_PIN                        PC4   // TB1
 
 //
 // Heaters / Fans
@@ -104,45 +141,47 @@
 #define HEATER_0_PIN                        PA1   // HEATER1
 #define HEATER_BED_PIN                      PA2   // HOT BED
 
-#define FAN_PIN                             PA0   // FAN
-#define FAN_SOFT_PWM
+#ifndef FAN_PIN
+  #define FAN_PIN                           PA0   // FAN
+#endif
+#if PIN_EXISTS(FAN)
+  #define FAN_SOFT_PWM
+#endif
 
 //
 // SD Card
 //
 #define SD_DETECT_PIN                       PA10
 //#define SDCARD_CONNECTION                ONBOARD
-//#define ON_BOARD_SPI_DEVICE 1
+//#define ONBOARD_SPI_DEVICE                     1
 //#define ONBOARD_SD_CS_PIN                   PA4   // SDSS
 #define SDIO_SUPPORT
 
 #define LED                                PA3
+#define NO_SD_HOST_DRIVE                          // This board's SD is only seen by the printer
 
-// Ignore temp readings during development.
- //#define BOGUS_TEMPERATURE_GRACE_PERIOD 2000
-//
-// Power Loss Detection
-//
-// #ifndef POWER_LOSS_PIN
-//   #define POWER_LOSS_PIN                   PA15  // PWRDET
-// #endif
-
+#if ENABLED(CR10_STOCKDISPLAY) && NONE(RET6_12864_LCD, VET6_12864_LCD)
+  #error "Define RET6_12864_LCD or VET6_12864_LCD to select pins for CR10_STOCKDISPLAY with the Creality V4 controller."
+#endif
 
 #if ENABLED(RET6_12864_LCD)
 
-  /* RET6 12864 LCD */
-#define LCD_PINS_RS 	  	 PB15//SPI3_NSS
-#define LCD_PINS_ENABLE    PB12// SPI3_MOSI
-#define LCD_PINS_D4 	   PB14// SPI3_CLK
-  
-#define BTN_ENC 		   PD11	//LCD_RST
-#define BTN_EN1 		   PD8	// UART4-TX
-#define BTN_EN2 		   PB13	// SPI MISO
-  
-#define BEEPER_PIN		   PD10 //LCD_ENC
+  // RET6 12864 LCD
+  #define LCD_PINS_RS                       PB15
+  #define LCD_PINS_ENABLE                   PB12
+  #define LCD_PINS_D4                       PB14
+
+  #define BTN_ENC                           PD11
+  #define BTN_EN1                           PD8
+  #define BTN_EN2                           PB13
+
+  #ifndef HAS_PIN_27_BOARD
+    #define BEEPER_PIN                      PD10
+  #endif
+
 #elif ENABLED(VET6_12864_LCD)
 
-  /* VET6 12864 LCD */
+  // VET6 12864 LCD
   #define LCD_PINS_RS                       PA4
   #define LCD_PINS_ENABLE                   PA7
   #define LCD_PINS_D4                       PA5
@@ -153,16 +192,20 @@
 
 #elif ENABLED(DWIN_CREALITY_LCD)
 
-  /* RET6 DWIN ENCODER LCD */
-#define BTN_ENC 		   PB14	//SPI_MISO
-#define BTN_EN1 		   PB15	// SPI3_MOSI
-#define BTN_EN2 		   PB12	// SPI3_NSS
+  // RET6 DWIN ENCODER LCD
+  #define BTN_ENC                           PB14
+  #define BTN_EN1                           PB15
+  #define BTN_EN2                           PB12
 
-  #define BEEPER_PIN                        PB13 //SPI3_CLK
+  //#define LCD_LED_PIN                     PB2
+  #ifndef BEEPER_PIN
+    #define BEEPER_PIN                      PB13
+    #undef SPEAKER
+  #endif
 
 #elif ENABLED(DWIN_VET6_CREALITY_LCD)
 
-  /* VET6 DWIN ENCODER LCD */
+  // VET6 DWIN ENCODER LCD
   #define BTN_ENC                           PA6
   #define BTN_EN1                           PA7
   #define BTN_EN2                           PA4

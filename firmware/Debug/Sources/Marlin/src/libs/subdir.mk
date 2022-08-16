@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../Sources/Marlin/src/libs/BL24CXX.cpp \
+../Sources/Marlin/src/libs/MAX31865.cpp \
 ../Sources/Marlin/src/libs/W25Qxx.cpp \
 ../Sources/Marlin/src/libs/buzzer.cpp \
 ../Sources/Marlin/src/libs/crc16.cpp \
@@ -17,6 +18,7 @@ CPP_SRCS += \
 
 OBJS += \
 ./Sources/Marlin/src/libs/BL24CXX.o \
+./Sources/Marlin/src/libs/MAX31865.o \
 ./Sources/Marlin/src/libs/W25Qxx.o \
 ./Sources/Marlin/src/libs/buzzer.o \
 ./Sources/Marlin/src/libs/crc16.o \
@@ -29,6 +31,7 @@ OBJS += \
 
 CPP_DEPS += \
 ./Sources/Marlin/src/libs/BL24CXX.d \
+./Sources/Marlin/src/libs/MAX31865.d \
 ./Sources/Marlin/src/libs/W25Qxx.d \
 ./Sources/Marlin/src/libs/buzzer.d \
 ./Sources/Marlin/src/libs/crc16.d \

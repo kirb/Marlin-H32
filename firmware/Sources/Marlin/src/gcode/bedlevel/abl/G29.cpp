@@ -60,6 +60,10 @@
   #include "../../../lcd/extui/ui_api.h"
 #endif
 
+#if ENABLED(DWIN_CREALITY_LCD)
+  #include "../../../lcd/dwin/e3v2/dwin.h"
+#endif
+
 #if HAS_MULTI_HOTEND
   #include "../../../module/tool_change.h"
 #endif
@@ -564,7 +568,7 @@ G29_TYPE GcodeSuite::G29() {
 
       // Probe at 3 arbitrary points
       if (abl.abl_probe_index < abl.abl_points) {
-        abl.probePos = points[abl.abl_probe_index];
+        abl.probePos = xy_pos_t(points[abl.abl_probe_index]);
         _manual_goto_xy(abl.probePos);
         // Disable software endstops to allow manual adjustment
         // If G29 is not completed, they will not be re-enabled
@@ -886,6 +890,10 @@ G29_TYPE GcodeSuite::G29() {
     if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPAIR("Z Probe End Script: ", Z_PROBE_END_SCRIPT);
     planner.synchronize();
     process_subcommands_now_P(PSTR(Z_PROBE_END_SCRIPT));
+  #endif
+
+  #if ENABLED(DWIN_CREALITY_LCD)
+    DWIN_CompletedLeveling();
   #endif
 
   report_current_position();

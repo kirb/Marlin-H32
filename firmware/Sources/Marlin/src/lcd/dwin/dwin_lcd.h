@@ -68,11 +68,10 @@ void DWIN_UpdateLCD(void);
 void DWIN_Frame_Clear(const uint16_t color);
 
 // Draw a point
-//  color: Line segment color
 //  width: point width   0x01-0x0F
 //  height: point height 0x01-0x0F
 //  x,y: upper left point
-void DWIN_Draw_Point(uint16_t color, uint8_t width, uint8_t height, uint16_t x, uint16_t y);
+void DWIN_Draw_Point(uint8_t width, uint8_t height, uint16_t x, uint16_t y);
 
 // Draw a line
 //  color: Line segment color
@@ -113,11 +112,6 @@ inline void DWIN_Draw_Box(uint8_t mode, uint16_t color, uint16_t xStart, uint16_
   DWIN_Draw_Rectangle(mode, color, xStart, yStart, xStart + xSize - 1, yStart + ySize - 1);
 }
 
-//Color: color
-//x: upper left point
-//y: bottom right point
-void DWIN_Draw_DegreeSymbol(uint16_t Color, uint16_t x, uint16_t y);
-
 // Move a screen area
 //  mode: 0, circle shift; 1, translation
 //  dir: 0=left, 1=right, 2=up, 3=down
@@ -139,14 +133,12 @@ void DWIN_Frame_AreaMove(uint8_t mode, uint8_t dir, uint16_t dis,
 //  x/y: Upper-left coordinate of the string
 //  *string: The string
 void DWIN_Draw_String(bool widthAdjust, bool bShow, uint8_t size,
-                      uint16_t color, uint16_t bColor, uint16_t x, uint16_t y, const char * string);
+                      uint16_t color, uint16_t bColor, uint16_t x, uint16_t y, char *string);
 
 class __FlashStringHelper;
 
 inline void DWIN_Draw_String(bool widthAdjust, bool bShow, uint8_t size, uint16_t color, uint16_t bColor, uint16_t x, uint16_t y, const __FlashStringHelper *title) {
-  // Note that this won't work on AVR. This is for 32-bit systems only!
-  // Are __FlashStringHelper versions worth keeping?
-  DWIN_Draw_String(widthAdjust, bShow, size, color, bColor, x, y, reinterpret_cast<const char*>(title));
+  DWIN_Draw_String(widthAdjust, bShow, size, color, bColor, x, y, (char *)title);
 }
 
 // Draw a positive integer
@@ -219,7 +211,3 @@ void DWIN_ICON_Animation(uint8_t animID, bool animate, uint8_t libID, uint8_t pi
 // Animation Control
 //  state: 16 bits, each bit is the state of an animation id
 void DWIN_ICON_AnimationControl(uint16_t state);
-
-void DWIN_Save_JPEG_in_SRAM(uint8_t *data, uint16_t size, uint16_t dest_addr);
-
-void DWIN_SRAM_Memory_Icon_Display(uint16_t x, uint16_t y, uint16_t source_addr);

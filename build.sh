@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+cd "$(dirname "$0")"
 PATH="$PWD/arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-eabi/bin:$PATH"
 cp firmware/Configuration\ Files/Aquila\ Templates/BLTouch-3x3/Configuration.h firmware/Sources/Marlin/Configuration.h
 cp firmware/Configuration\ Files/Aquila\ Templates/BLTouch-3x3/Configuration_adv.h firmware/Sources/Marlin/Configuration_adv.h

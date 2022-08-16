@@ -24,6 +24,8 @@
  * SOFTWARE.
  *****************************************************************************/
 #pragma once
+
+// #define USE_SPI // ???
 #ifdef USE_SPI
 #include "libmaple_types.h"
 #include "spi.h"
