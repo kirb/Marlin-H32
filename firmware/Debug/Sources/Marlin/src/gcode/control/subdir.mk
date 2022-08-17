@@ -12,6 +12,7 @@ CPP_SRCS += \
 ../Sources/Marlin/src/gcode/control/M211.cpp \
 ../Sources/Marlin/src/gcode/control/M226.cpp \
 ../Sources/Marlin/src/gcode/control/M280.cpp \
+../Sources/Marlin/src/gcode/control/M282.cpp \
 ../Sources/Marlin/src/gcode/control/M3-M5.cpp \
 ../Sources/Marlin/src/gcode/control/M350_M351.cpp \
 ../Sources/Marlin/src/gcode/control/M380_M381.cpp \
@@ -35,6 +36,7 @@ OBJS += \
 ./Sources/Marlin/src/gcode/control/M211.o \
 ./Sources/Marlin/src/gcode/control/M226.o \
 ./Sources/Marlin/src/gcode/control/M280.o \
+./Sources/Marlin/src/gcode/control/M282.o \
 ./Sources/Marlin/src/gcode/control/M3-M5.o \
 ./Sources/Marlin/src/gcode/control/M350_M351.o \
 ./Sources/Marlin/src/gcode/control/M380_M381.o \
@@ -58,6 +60,7 @@ CPP_DEPS += \
 ./Sources/Marlin/src/gcode/control/M211.d \
 ./Sources/Marlin/src/gcode/control/M226.d \
 ./Sources/Marlin/src/gcode/control/M280.d \
+./Sources/Marlin/src/gcode/control/M282.d \
 ./Sources/Marlin/src/gcode/control/M3-M5.d \
 ./Sources/Marlin/src/gcode/control/M350_M351.d \
 ./Sources/Marlin/src/gcode/control/M380_M381.d \

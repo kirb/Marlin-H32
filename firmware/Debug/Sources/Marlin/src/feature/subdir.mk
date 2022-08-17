@@ -16,9 +16,11 @@ CPP_SRCS += \
 ../Sources/Marlin/src/feature/controllerfan.cpp \
 ../Sources/Marlin/src/feature/cooler.cpp \
 ../Sources/Marlin/src/feature/direct_stepping.cpp \
+../Sources/Marlin/src/feature/easythreed_ui.cpp \
 ../Sources/Marlin/src/feature/e_parser.cpp \
 ../Sources/Marlin/src/feature/encoder_i2c.cpp \
 ../Sources/Marlin/src/feature/ethernet.cpp \
+../Sources/Marlin/src/feature/fancheck.cpp \
 ../Sources/Marlin/src/feature/fanmux.cpp \
 ../Sources/Marlin/src/feature/filwidth.cpp \
 ../Sources/Marlin/src/feature/fwretract.cpp \
@@ -56,9 +58,11 @@ OBJS += \
 ./Sources/Marlin/src/feature/controllerfan.o \
 ./Sources/Marlin/src/feature/cooler.o \
 ./Sources/Marlin/src/feature/direct_stepping.o \
+./Sources/Marlin/src/feature/easythreed_ui.o \
 ./Sources/Marlin/src/feature/e_parser.o \
 ./Sources/Marlin/src/feature/encoder_i2c.o \
 ./Sources/Marlin/src/feature/ethernet.o \
+./Sources/Marlin/src/feature/fancheck.o \
 ./Sources/Marlin/src/feature/fanmux.o \
 ./Sources/Marlin/src/feature/filwidth.o \
 ./Sources/Marlin/src/feature/fwretract.o \
@@ -95,10 +99,12 @@ CPP_DEPS += \
 ./Sources/Marlin/src/feature/closedloop.d \
 ./Sources/Marlin/src/feature/controllerfan.d \
 ./Sources/Marlin/src/feature/cooler.d \
+./Sources/Marlin/src/feature/easythreed_ui.d \
 ./Sources/Marlin/src/feature/direct_stepping.d \
 ./Sources/Marlin/src/feature/e_parser.d \
 ./Sources/Marlin/src/feature/encoder_i2c.d \
 ./Sources/Marlin/src/feature/ethernet.d \
+./Sources/Marlin/src/feature/fancheck.d \
 ./Sources/Marlin/src/feature/fanmux.d \
 ./Sources/Marlin/src/feature/filwidth.d \
 ./Sources/Marlin/src/feature/fwretract.d \

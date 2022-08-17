@@ -7,6 +7,7 @@ CPP_SRCS += \
 ../Sources/Marlin/src/gcode/temp/M104_M109.cpp \
 ../Sources/Marlin/src/gcode/temp/M105.cpp \
 ../Sources/Marlin/src/gcode/temp/M106_M107.cpp \
+../Sources/Marlin/src/gcode/temp/M123.cpp \
 ../Sources/Marlin/src/gcode/temp/M140_M190.cpp \
 ../Sources/Marlin/src/gcode/temp/M141_M191.cpp \
 ../Sources/Marlin/src/gcode/temp/M143_M193.cpp \
@@ -17,6 +18,7 @@ OBJS += \
 ./Sources/Marlin/src/gcode/temp/M104_M109.o \
 ./Sources/Marlin/src/gcode/temp/M105.o \
 ./Sources/Marlin/src/gcode/temp/M106_M107.o \
+./Sources/Marlin/src/gcode/temp/M123.o \
 ./Sources/Marlin/src/gcode/temp/M140_M190.o \
 ./Sources/Marlin/src/gcode/temp/M141_M191.o \
 ./Sources/Marlin/src/gcode/temp/M143_M193.o \
@@ -27,6 +29,7 @@ CPP_DEPS += \
 ./Sources/Marlin/src/gcode/temp/M104_M109.d \
 ./Sources/Marlin/src/gcode/temp/M105.d \
 ./Sources/Marlin/src/gcode/temp/M106_M107.d \
+./Sources/Marlin/src/gcode/temp/M123.d \
 ./Sources/Marlin/src/gcode/temp/M140_M190.d \
 ./Sources/Marlin/src/gcode/temp/M141_M191.d \
 ./Sources/Marlin/src/gcode/temp/M143_M193.d \

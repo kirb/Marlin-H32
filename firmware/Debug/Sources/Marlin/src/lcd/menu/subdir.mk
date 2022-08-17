@@ -32,7 +32,8 @@ CPP_SRCS += \
 ../Sources/Marlin/src/lcd/menu/menu_touch_screen.cpp \
 ../Sources/Marlin/src/lcd/menu/menu_tramming.cpp \
 ../Sources/Marlin/src/lcd/menu/menu_tune.cpp \
-../Sources/Marlin/src/lcd/menu/menu_ubl.cpp 
+../Sources/Marlin/src/lcd/menu/menu_ubl.cpp \
+../Sources/Marlin/src/lcd/menu/menu_x_twist.cpp 
 
 OBJS += \
 ./Sources/Marlin/src/lcd/menu/menu.o \
@@ -63,7 +64,8 @@ OBJS += \
 ./Sources/Marlin/src/lcd/menu/menu_touch_screen.o \
 ./Sources/Marlin/src/lcd/menu/menu_tramming.o \
 ./Sources/Marlin/src/lcd/menu/menu_tune.o \
-./Sources/Marlin/src/lcd/menu/menu_ubl.o 
+./Sources/Marlin/src/lcd/menu/menu_ubl.o \
+./Sources/Marlin/src/lcd/menu/menu_x_twist.o 
 
 CPP_DEPS += \
 ./Sources/Marlin/src/lcd/menu/menu.d \
@@ -94,7 +96,8 @@ CPP_DEPS += \
 ./Sources/Marlin/src/lcd/menu/menu_touch_screen.d \
 ./Sources/Marlin/src/lcd/menu/menu_tramming.d \
 ./Sources/Marlin/src/lcd/menu/menu_tune.d \
-./Sources/Marlin/src/lcd/menu/menu_ubl.d 
+./Sources/Marlin/src/lcd/menu/menu_ubl.d \
+./Sources/Marlin/src/lcd/menu/menu_x_twist.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

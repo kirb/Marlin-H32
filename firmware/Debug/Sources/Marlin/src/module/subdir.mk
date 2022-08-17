@@ -9,6 +9,7 @@ CPP_SRCS += \
 ../Sources/Marlin/src/module/motion.cpp \
 ../Sources/Marlin/src/module/planner.cpp \
 ../Sources/Marlin/src/module/planner_bezier.cpp \
+../Sources/Marlin/src/module/polargraph.cpp \
 ../Sources/Marlin/src/module/printcounter.cpp \
 ../Sources/Marlin/src/module/probe.cpp \
 ../Sources/Marlin/src/module/scara.cpp \
@@ -24,6 +25,7 @@ OBJS += \
 ./Sources/Marlin/src/module/motion.o \
 ./Sources/Marlin/src/module/planner.o \
 ./Sources/Marlin/src/module/planner_bezier.o \
+./Sources/Marlin/src/module/polargraph.o \
 ./Sources/Marlin/src/module/printcounter.o \
 ./Sources/Marlin/src/module/probe.o \
 ./Sources/Marlin/src/module/scara.o \
@@ -39,6 +41,7 @@ CPP_DEPS += \
 ./Sources/Marlin/src/module/motion.d \
 ./Sources/Marlin/src/module/planner.d \
 ./Sources/Marlin/src/module/planner_bezier.d \
+./Sources/Marlin/src/module/polargraph.d \
 ./Sources/Marlin/src/module/printcounter.d \
 ./Sources/Marlin/src/module/probe.d \
 ./Sources/Marlin/src/module/scara.d \

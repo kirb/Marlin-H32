@@ -4,15 +4,12 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../Sources/Marlin/src/HAL/STM32F1/dogm/u8g_com_stm32duino_fsmc.cpp \
 ../Sources/Marlin/src/HAL/STM32F1/dogm/u8g_com_stm32duino_swspi.cpp 
 
 OBJS += \
-./Sources/Marlin/src/HAL/STM32F1/dogm/u8g_com_stm32duino_fsmc.o \
 ./Sources/Marlin/src/HAL/STM32F1/dogm/u8g_com_stm32duino_swspi.o 
 
 CPP_DEPS += \
-./Sources/Marlin/src/HAL/STM32F1/dogm/u8g_com_stm32duino_fsmc.d \
 ./Sources/Marlin/src/HAL/STM32F1/dogm/u8g_com_stm32duino_swspi.d 
 
 

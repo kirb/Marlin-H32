@@ -33,13 +33,13 @@
 #undef sq             // Redefined by teensy3/wiring.h
 #undef UNUSED         // Redefined by stm32f4xx_hal_def.h
 
-#include "Arduino.h"  // NOTE: If included earlier then this line is a NOOP
+#include <Arduino.h>  // NOTE: If included earlier then this line is a NOOP
 
 #undef DISABLED
 #define DISABLED(V...) DO(DIS,&&,V)
 
 #undef _BV
-#define _BV(b) (1UL << (b))
+#define _BV(b) (1 << (b))
 #ifndef SBI
   #define SBI(A,B) (A |= _BV(B))
 #endif
@@ -83,7 +83,14 @@
 #endif
 
 #ifndef FORCE_INLINE
-  #define FORCE_INLINE inline __attribute__((always_inline))
+  #define FORCE_INLINE __attribute__((always_inline)) inline
 #endif
 
 #include "progmem.h"
+
+class __FlashStringHelper;
+typedef const __FlashStringHelper* FSTR_P;
+#ifndef FPSTR
+  #define FPSTR(S) (reinterpret_cast<FSTR_P>(S))
+#endif
+#define FTOP(S) (reinterpret_cast<const char*>(S))

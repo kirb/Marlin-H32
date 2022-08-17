@@ -8,8 +8,8 @@ CPP_SRCS += \
 ../Sources/Marlin/src/gcode/calibrate/G33.cpp \
 ../Sources/Marlin/src/gcode/calibrate/G34.cpp \
 ../Sources/Marlin/src/gcode/calibrate/G34_M422.cpp \
+../Sources/Marlin/src/gcode/calibrate/G76_M871.cpp \
 ../Sources/Marlin/src/gcode/calibrate/G425.cpp \
-../Sources/Marlin/src/gcode/calibrate/G76_M192_M871.cpp \
 ../Sources/Marlin/src/gcode/calibrate/M100.cpp \
 ../Sources/Marlin/src/gcode/calibrate/M12.cpp \
 ../Sources/Marlin/src/gcode/calibrate/M425.cpp \
@@ -23,8 +23,8 @@ OBJS += \
 ./Sources/Marlin/src/gcode/calibrate/G33.o \
 ./Sources/Marlin/src/gcode/calibrate/G34.o \
 ./Sources/Marlin/src/gcode/calibrate/G34_M422.o \
+./Sources/Marlin/src/gcode/calibrate/G76_M871.o \
 ./Sources/Marlin/src/gcode/calibrate/G425.o \
-./Sources/Marlin/src/gcode/calibrate/G76_M192_M871.o \
 ./Sources/Marlin/src/gcode/calibrate/M100.o \
 ./Sources/Marlin/src/gcode/calibrate/M12.o \
 ./Sources/Marlin/src/gcode/calibrate/M425.o \
@@ -38,8 +38,8 @@ CPP_DEPS += \
 ./Sources/Marlin/src/gcode/calibrate/G33.d \
 ./Sources/Marlin/src/gcode/calibrate/G34.d \
 ./Sources/Marlin/src/gcode/calibrate/G34_M422.d \
+./Sources/Marlin/src/gcode/calibrate/G76_M871.d \
 ./Sources/Marlin/src/gcode/calibrate/G425.d \
-./Sources/Marlin/src/gcode/calibrate/G76_M192_M871.d \
 ./Sources/Marlin/src/gcode/calibrate/M100.d \
 ./Sources/Marlin/src/gcode/calibrate/M12.d \
 ./Sources/Marlin/src/gcode/calibrate/M425.d \

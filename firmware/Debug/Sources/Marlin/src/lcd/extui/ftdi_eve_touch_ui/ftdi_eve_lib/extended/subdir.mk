@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/adjuster_widget.cpp \
+../Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/arrows.cpp \
 ../Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/circular_progress.cpp \
 ../Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/command_processor.cpp \
 ../Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/dl_cache.cpp \
@@ -17,6 +18,7 @@ CPP_SRCS += \
 
 OBJS += \
 ./Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/adjuster_widget.o \
+./Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/arrows.o \
 ./Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/circular_progress.o \
 ./Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/command_processor.o \
 ./Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/dl_cache.o \
@@ -29,6 +31,7 @@ OBJS += \
 
 CPP_DEPS += \
 ./Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/adjuster_widget.d \
+./Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/arrows.d \
 ./Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/circular_progress.d \
 ./Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/command_processor.d \
 ./Sources/Marlin/src/lcd/extui/ftdi_eve_touch_ui/ftdi_eve_lib/extended/dl_cache.d \
