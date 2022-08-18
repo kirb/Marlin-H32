@@ -97,9 +97,9 @@ Sources/Marlin/src/lcd \
 Sources/Marlin/src/lcd/dogm \
 Sources/Marlin/src/lcd/e3v2/common \
 Sources/Marlin/src/lcd/e3v2/creality \
-Sources/Marlin/src/lcd/e3v2/enhanced \
 Sources/Marlin/src/lcd/e3v2/jyersui \
 Sources/Marlin/src/lcd/e3v2/marlinui \
+Sources/Marlin/src/lcd/e3v2/proui \
 Sources/Marlin/src/lcd/extui \
 Sources/Marlin/src/lcd/extui/anycubic_chiron \
 Sources/Marlin/src/lcd/extui/anycubic_i3mega \

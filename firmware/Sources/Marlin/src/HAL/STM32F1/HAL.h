@@ -34,7 +34,6 @@
 #include "../shared/HAL_SPI.h"
 
 #include "fastio.h"
-#include "watchdog.h"
 
 #include "timers.h"
 
@@ -49,52 +48,7 @@
 // Defines
 // ------------------------
 
- #define STM32_FLASH_SIZE 256
-
-#define _MSERIAL(X) MSerial##X
-#define MSERIAL(X) _MSERIAL(X)
-
- 
-// #define MYSERIAL0 Serial2
-// #define MYSERIAL1 Serial4
-
-// #define MYSERIAL0 MSERIAL(2)
-
-#define MYSERIAL1 MSERIAL(2)
-#define LCD_SERIAL MSERIAL(4)
-
-#if !WITHIN(SERIAL_PORT, -1, 5)
-  #error "SERIAL_PORT must be from -1 to 5"
-#endif
-
-  #if !WITHIN(SERIAL_PORT_2, -1, 5)
-    #error "SERIAL_PORT_2 must be from -1 to 5"
-  #elif SERIAL_PORT_2 == SERIAL_PORT
-    #error "SERIAL_PORT_2 must be different than SERIAL_PORT"
-  #endif
-  // #define NUM_SERIAL 2
-
-// Set interrupt grouping for this MCU
-void HAL_init();
-#define HAL_IDLETASK 1
-void HAL_idletask();
-
-/**
- * TODO: review this to return 1 for pins that are not analog input
- */
-#ifndef analogInputToDigitalPin
-  #define analogInputToDigitalPin(p) (p)
-#endif
-
-#ifndef digitalPinHasPWM
-  #define digitalPinHasPWM(P) (P)//(PIN_MAP[P].timer_device != nullptr)
-#endif
-
-#define CRITICAL_SECTION_START  uint32_t primask = __get_primask(); (void)__iCliRetVal()
-#define CRITICAL_SECTION_END    if (!primask) (void)__iSeiRetVal()
-#define ISRS_ENABLED() (!__get_primask())
-#define ENABLE_ISRS()  (__enable_irq())//__enable_irq((void)__iSeiRetVal())
-#define DISABLE_ISRS() (__disable_irq())//__disable_irq((void)__iCliRetVal())
+#define STM32_FLASH_SIZE 256
 
 // On AVR this is in math.h?
 #define square(x) ((x)*(x))
@@ -107,6 +61,37 @@ void HAL_idletask();
 #undef pgm_read_ptr
 #define pgm_read_ptr(addr) (*(addr))
 
+// Serial ports
+
+#define _MSERIAL(X) MSerial##X
+#define MSERIAL(X) _MSERIAL(X)
+
+#define MYSERIAL1 MSERIAL(2)
+#define LCD_SERIAL MSERIAL(4)
+
+#if !WITHIN(SERIAL_PORT, -1, 5)
+  #error "SERIAL_PORT must be from -1 to 5"
+#endif
+
+#if !WITHIN(SERIAL_PORT_2, -1, 5)
+  #error "SERIAL_PORT_2 must be from -1 to 5"
+#elif SERIAL_PORT_2 == SERIAL_PORT
+  #error "SERIAL_PORT_2 must be different than SERIAL_PORT"
+#endif
+
+/**
+ * TODO: review this to return 1 for pins that are not analog input
+ */
+#ifndef analogInputToDigitalPin
+  #define analogInputToDigitalPin(p) (p)
+#endif
+
+#ifndef digitalPinHasPWM
+  #define digitalPinHasPWM(P) (P)//(PIN_MAP[P].timer_device != nullptr)
+  #define NO_COMPILE_TIME_PWM
+#endif
+
+// Reset Reason
 #define RST_POWER_ON   1
 #define RST_EXTERNAL   2
 #define RST_BROWN_OUT  4
@@ -122,93 +107,32 @@ void HAL_idletask();
 typedef int8_t pin_t;
 
 // ------------------------
-// Public Variables
+// Interrupts
 // ------------------------
 
-// Result of last ADC conversion
-extern uint16_t HAL_adc_result;
-
-// ------------------------
-// Public functions
-// ------------------------
-
-// Disable interrupts
+#define CRITICAL_SECTION_START()  uint32_t primask = __get_PRIMASK(); (void)__iCliRetVal()
+#define CRITICAL_SECTION_END()    if (!primask) (void)__iSeiRetVal()
 #define cli() noInterrupts()
-
-// Enable interrupts
 #define sei() interrupts()
 
-// Memory related
-#define __bss_end __bss_end__
-
-// Clear reset reason
-void HAL_clear_reset_source();
-
-// Reset reason
-uint8_t HAL_get_reset_source();
-
-void _delay_ms(const int delay);
-#ifdef GCC
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-function"
-#endif
-/*
-extern "C" {
-  int freeMemory();
-}
-*/
-
-extern "C" char* _sbrk(int incr);
-
-/*
-static int freeMemory() {
-  volatile int top;
-  top = (int)((char*)&top - reinterpret_cast<char*>(_sbrk(0)));
-  return top;
-}
-*/
-
-inline int freeMemory() {
-  volatile char top;
-  return top;
-}
-
-#ifdef GCC
-#pragma GCC diagnostic pop
-#endif
-//
-// EEPROM
-//
-
-/**
- * TODO: Write all this EEPROM stuff. Can emulate EEPROM in flash as last resort.
- * Wire library should work for i2c EEPROMs.
- */
-void eeprom_write_byte(uint8_t *pos, unsigned char value);
-uint8_t eeprom_read_byte(uint8_t *pos);
-void eeprom_read_block(void *__dst, const void *__src, size_t __n);
-void eeprom_update_block(const void *__src, void *__dst, size_t __n);
-
-//
+// ------------------------
 // ADC
-//
+// ------------------------
 
-#define HAL_ANALOG_SELECT(pin) pinMode(pin, INPUT_ANALOG);
+#ifdef ADC_RESOLUTION
+  #define HAL_ADC_RESOLUTION ADC_RESOLUTION
+#else
+  #define HAL_ADC_RESOLUTION 10
+#endif
 
-void HAL_adc_init();
-
-#define HAL_START_ADC(pin)  HAL_adc_start_conversion(pin)
 #define HAL_ADC_VREF         3.3
-#define HAL_ADC_RESOLUTION  10
-#define HAL_READ_ADC()      HAL_adc_result
-#define HAL_ADC_READY()     true
 
-void HAL_adc_start_conversion(const uint8_t adc_pin);
-uint16_t HAL_adc_get_result();
+uint16_t analogRead(const pin_t pin); // need hal.adc_enable() first
+void analogWrite(const pin_t pin, int pwm_val8); // PWM only! mul by 257 in maple!?
 
-uint16_t HAL_analogRead(pin_t pin); // need HAL_ANALOG_SELECT() first
-void HAL_analogWrite(pin_t pin, int pwm_val8); // PWM only! mul by 257 in maple!?
-
+//
+// Pin Mapping for M42, M43, M226
+//
 #define GET_PIN_MAP_PIN(index) index
 #define GET_PIN_MAP_INDEX(pin) pin
 #define PARSED_PIN_INDEX(code, dval) parser.intval(code, dval)
@@ -218,3 +142,97 @@ void HAL_analogWrite(pin_t pin, int pwm_val8); // PWM only! mul by 257 in maple!
 
 #define PLATFORM_M997_SUPPORT
 void flashFirmware(int16_t value);
+
+// ------------------------
+// Class Utilities
+// ------------------------
+
+// Memory related
+#define __bss_end __bss_end__
+
+void _delay_ms(const int ms);
+
+extern "C" char* _sbrk(int incr);
+
+#pragma GCC diagnostic push
+#if GCC_VERSION <= 50000
+  #pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+
+static inline int freeMemory() {
+  volatile char top;
+  return &top - _sbrk(0);
+}
+
+#pragma GCC diagnostic pop
+
+class MarlinHAL {
+public:
+
+  // Earliest possible init, before setup()
+  MarlinHAL() {}
+
+  // Watchdog
+  static void watchdog_init()    IF_DISABLED(USE_WATCHDOG, {});
+  static void watchdog_refresh() IF_DISABLED(USE_WATCHDOG, {});
+
+  static void init();          // Called early in setup()
+  static void init_board() {}  // Called less early in setup()
+  static void reboot() {}      // Restart the firmware from 0x0
+
+  // Interrupts
+  static bool isr_state() { return !__get_PRIMASK(); }
+  static void isr_on()  { return __enable_irq(); }
+  static void isr_off() { return __disable_irq(); }
+
+  static void delay_ms(const int delay_ms) { delay(delay_ms); }
+
+  // Tasks, called from idle()
+  static void idletask() {}
+
+  // Reset
+  static uint8_t get_reset_source() { return 1; }
+  static void clear_reset_source() {}
+
+  // Free SRAM
+  static int freeMemory() {
+    volatile char top;
+    return top;
+  }
+
+  //
+  // ADC Methods
+  //
+
+  static uint16_t adc_result;
+
+  // Called by Temperature::init once at startup
+  static void adc_init();
+
+  // Called by Temperature::init for each sensor at startup
+  static void adc_enable(const pin_t pin) { pinMode(pin, INPUT_ANALOG); }
+
+  // Begin ADC sampling on the given channel
+  static void adc_start(const pin_t pin);
+
+  // Is the ADC ready for reading?
+  static bool adc_ready() { return true; }
+
+  // The current value of the ADC register
+  static uint16_t adc_value() { return adc_result; }
+
+  /**
+   * Set the PWM duty cycle for the pin to the given value.
+   * Optionally invert the duty cycle [default = false]
+   * Optionally change the maximum size of the provided value to enable finer PWM duty control [default = 255]
+   * The timer must be pre-configured with set_pwm_frequency() if the default frequency is not desired.
+   */
+  static void set_pwm_duty(const pin_t pin, const uint16_t v, const uint16_t=255, const bool=false);
+
+  /**
+   * Set the frequency of the timer for the given pin.
+   * All Timer PWM pins run at the same frequency.
+   */
+  static void set_pwm_frequency(const pin_t pin, const uint16_t f_desired);
+
+};

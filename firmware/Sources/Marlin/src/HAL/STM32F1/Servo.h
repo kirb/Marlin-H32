@@ -35,7 +35,8 @@
 #define SERVO_DEFAULT_MIN_ANGLE         0
 #define SERVO_DEFAULT_MAX_ANGLE         180
 
-#define HAL_SERVO_LIB libServo
+class libServo;
+typedef libServo hal_servo_t;
 
 #if defined(HC32F46x) && NUM_SERVOS > 1
 #error "I don't know how to handle more than one servo with the H32 chip yet, sorry!"

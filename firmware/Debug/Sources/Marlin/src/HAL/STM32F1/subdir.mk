@@ -19,8 +19,7 @@ CPP_SRCS += \
 ../Sources/Marlin/src/HAL/STM32F1/msc_sd.cpp \
 ../Sources/Marlin/src/HAL/STM32F1/onboard_sd.cpp \
 ../Sources/Marlin/src/HAL/STM32F1/sdio.cpp \
-../Sources/Marlin/src/HAL/STM32F1/timers.cpp \
-../Sources/Marlin/src/HAL/STM32F1/watchdog.cpp 
+../Sources/Marlin/src/HAL/STM32F1/timers.cpp 
 
 OBJS += \
 ./Sources/Marlin/src/HAL/STM32F1/ExtInt_Z_MIN_PROBE.o \
@@ -38,8 +37,7 @@ OBJS += \
 ./Sources/Marlin/src/HAL/STM32F1/msc_sd.o \
 ./Sources/Marlin/src/HAL/STM32F1/onboard_sd.o \
 ./Sources/Marlin/src/HAL/STM32F1/sdio.o \
-./Sources/Marlin/src/HAL/STM32F1/timers.o \
-./Sources/Marlin/src/HAL/STM32F1/watchdog.o 
+./Sources/Marlin/src/HAL/STM32F1/timers.o 
 
 CPP_DEPS += \
 ./Sources/Marlin/src/HAL/STM32F1/ExtInt_Z_MIN_PROBE.d \
@@ -57,8 +55,7 @@ CPP_DEPS += \
 ./Sources/Marlin/src/HAL/STM32F1/msc_sd.d \
 ./Sources/Marlin/src/HAL/STM32F1/onboard_sd.d \
 ./Sources/Marlin/src/HAL/STM32F1/sdio.d \
-./Sources/Marlin/src/HAL/STM32F1/timers.d \
-./Sources/Marlin/src/HAL/STM32F1/watchdog.d 
+./Sources/Marlin/src/HAL/STM32F1/timers.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

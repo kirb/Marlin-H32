@@ -12,7 +12,8 @@ CPP_SRCS += \
 ../Sources/Marlin/src/gcode/temp/M141_M191.cpp \
 ../Sources/Marlin/src/gcode/temp/M143_M193.cpp \
 ../Sources/Marlin/src/gcode/temp/M155.cpp \
-../Sources/Marlin/src/gcode/temp/M303.cpp 
+../Sources/Marlin/src/gcode/temp/M303.cpp \
+../Sources/Marlin/src/gcode/temp/M306.cpp 
 
 OBJS += \
 ./Sources/Marlin/src/gcode/temp/M104_M109.o \
@@ -23,7 +24,8 @@ OBJS += \
 ./Sources/Marlin/src/gcode/temp/M141_M191.o \
 ./Sources/Marlin/src/gcode/temp/M143_M193.o \
 ./Sources/Marlin/src/gcode/temp/M155.o \
-./Sources/Marlin/src/gcode/temp/M303.o 
+./Sources/Marlin/src/gcode/temp/M303.o \
+./Sources/Marlin/src/gcode/temp/M306.o 
 
 CPP_DEPS += \
 ./Sources/Marlin/src/gcode/temp/M104_M109.d \
@@ -34,7 +36,8 @@ CPP_DEPS += \
 ./Sources/Marlin/src/gcode/temp/M141_M191.d \
 ./Sources/Marlin/src/gcode/temp/M143_M193.d \
 ./Sources/Marlin/src/gcode/temp/M155.d \
-./Sources/Marlin/src/gcode/temp/M303.d 
+./Sources/Marlin/src/gcode/temp/M303.d \
+./Sources/Marlin/src/gcode/temp/M306.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

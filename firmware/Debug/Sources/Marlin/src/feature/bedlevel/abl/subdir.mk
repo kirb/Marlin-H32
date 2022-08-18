@@ -4,16 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../Sources/Marlin/src/feature/bedlevel/abl/abl.cpp \
-../Sources/Marlin/src/feature/bedlevel/abl/x_twist.cpp
+../Sources/Marlin/src/feature/bedlevel/abl/bbl.cpp 
 
 OBJS += \
-./Sources/Marlin/src/feature/bedlevel/abl/abl.o \
-./Sources/Marlin/src/feature/bedlevel/abl/x_twist.o
+./Sources/Marlin/src/feature/bedlevel/abl/bbl.o 
 
 CPP_DEPS += \
-./Sources/Marlin/src/feature/bedlevel/abl/abl.d \
-./Sources/Marlin/src/feature/bedlevel/abl/x_twist.d
+./Sources/Marlin/src/feature/bedlevel/abl/bbl.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

@@ -33,7 +33,7 @@
   //USBSerial SerialUSB;
 #endif
 
-uint16_t HAL_adc_result;
+uint16_t MarlinHAL::adc_result = 0;
 
 // ------------------------
 // Private Variables
@@ -44,8 +44,6 @@ enum TEMP_PINS {
     TEMP_BED=14,
     TEMP_0=15,
 };
-
-//uint16_t HAL_adc_results[ADC_PIN_COUNT];
 
 // ------------------------
 // Public functions
@@ -61,7 +59,7 @@ enum TEMP_PINS {
 }
 #endif
 
-void HAL_init() {
+void MarlinHAL::init() {
   NVIC_SetPriorityGrouping(0x3);
   stc_wdt_init_t new_WDT_config;
   new_WDT_config.enCountCycle = WdtCountCycle65536;///< Count cycle
@@ -72,10 +70,6 @@ void HAL_init() {
   WDT_Init(&new_WDT_config);
 }
 
-// HAL idle task
-void HAL_idletask() {
-}
-
 /* VGPV Done with defines
 // disable interrupts
 void cli() { noInterrupts(); }
@@ -83,8 +77,6 @@ void cli() { noInterrupts(); }
 // enable interrupts
 void sei() { interrupts(); }
 */
-
-void HAL_clear_reset_source() { }
 
 /**
  * TODO: Check this and change or remove.
@@ -110,41 +102,59 @@ FlagStatus RCC_GetFlagStatus(uint8_t RCC_FLAG){
   return bitstatus;
 }
 
-uint8_t HAL_get_reset_source(){
-	return 1; 
-}
-
-void _delay_ms(const int delay_ms) { delay(delay_ms); }
-
 extern "C" {
   extern unsigned int _ebss; // end of bss section
 }
 
+// ------------------------
+// Watchdog Timer
+// ------------------------
+
+#if ENABLED(USE_WATCHDOG)
+
+  #include "iwdg.h"
+
+  void watchdogSetup() {
+    // do whatever. don't remove this function.
+  }
+
+  void MarlinHAL::watchdog_init() {
+    iwdg_init();
+  }
+
+  void MarlinHAL::watchdog_refresh() {
+    iwdg_feed();
+  }
+
+#endif
+
+void HAL_watchdog_refresh() {
+  MarlinHAL::watchdog_refresh();
+}
 
 // ------------------------
 // ADC
 // ------------------------
 // Init the AD in continuous capture mode
-void HAL_adc_init() {}
+void MarlinHAL::adc_init() {}
 
-void HAL_adc_start_conversion(const uint8_t adc_pin) {
+void MarlinHAL::adc_start(const pin_t adc_pin) {
 	TEMP_PINS pin_index;
 	switch (adc_pin) {
 		case TEMP_0_PIN: pin_index = TEMP_0; break;
 		case TEMP_BED_PIN: pin_index = TEMP_BED; break;
     default: pin_index = TEMP_0; break;
 	}
-	HAL_adc_result = adc_read(ADC1,(uint8_t)pin_index);
+	adc_result = adc_read(ADC1,(uint8_t)pin_index);
 }
-uint16_t HAL_adc_get_result() { return HAL_adc_result; }
 
-uint16_t HAL_analogRead(pin_t pin) {
+uint16_t analogRead(pin_t pin) {
   const bool is_analog = _GET_MODE(pin) == INPUT_ANALOG;
   return is_analog ? analogRead(uint8_t(pin)) : 0;
 }
 
 // Wrapper to maple unprotected analogWrite
-void HAL_analogWrite(pin_t pin, int pwm_val8) {
+void analogWrite(pin_t pin, int pwm_val8) {
   if (PWM_PIN(pin))
     analogWrite(uint8_t(pin), pwm_val8);
 }

@@ -28,7 +28,7 @@
 /**
  * Marlin release version identifier
  */
-#define SHORT_BUILD_VERSION "kirb/Marlin-H32 2.0.9.3"
+#define SHORT_BUILD_VERSION "kirb/Marlin-H32 2.0.9.5"
 
 /**
  * Verbose version identifier which should contain a reference to the location

@@ -7,19 +7,22 @@ CPP_SRCS += \
 ../Sources/Marlin/src/gcode/feature/trinamic/M122.cpp \
 ../Sources/Marlin/src/gcode/feature/trinamic/M569.cpp \
 ../Sources/Marlin/src/gcode/feature/trinamic/M906.cpp \
-../Sources/Marlin/src/gcode/feature/trinamic/M911-M914.cpp 
+../Sources/Marlin/src/gcode/feature/trinamic/M911-M914.cpp \
+../Sources/Marlin/src/gcode/feature/trinamic/M919.cpp 
 
 OBJS += \
 ./Sources/Marlin/src/gcode/feature/trinamic/M122.o \
 ./Sources/Marlin/src/gcode/feature/trinamic/M569.o \
 ./Sources/Marlin/src/gcode/feature/trinamic/M906.o \
-./Sources/Marlin/src/gcode/feature/trinamic/M911-M914.o 
+./Sources/Marlin/src/gcode/feature/trinamic/M911-M914.o \
+./Sources/Marlin/src/gcode/feature/trinamic/M919.o 
 
 CPP_DEPS += \
 ./Sources/Marlin/src/gcode/feature/trinamic/M122.d \
 ./Sources/Marlin/src/gcode/feature/trinamic/M569.d \
 ./Sources/Marlin/src/gcode/feature/trinamic/M906.d \
-./Sources/Marlin/src/gcode/feature/trinamic/M911-M914.d 
+./Sources/Marlin/src/gcode/feature/trinamic/M911-M914.d \
+./Sources/Marlin/src/gcode/feature/trinamic/M919.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

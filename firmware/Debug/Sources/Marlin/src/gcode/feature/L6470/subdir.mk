@@ -5,18 +5,15 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../Sources/Marlin/src/gcode/feature/L6470/M122.cpp \
-../Sources/Marlin/src/gcode/feature/L6470/M906.cpp \
-../Sources/Marlin/src/gcode/feature/L6470/M916-918.cpp 
+../Sources/Marlin/src/gcode/feature/L6470/M906.cpp 
 
 OBJS += \
 ./Sources/Marlin/src/gcode/feature/L6470/M122.o \
-./Sources/Marlin/src/gcode/feature/L6470/M906.o \
-./Sources/Marlin/src/gcode/feature/L6470/M916-918.o 
+./Sources/Marlin/src/gcode/feature/L6470/M906.o 
 
 CPP_DEPS += \
 ./Sources/Marlin/src/gcode/feature/L6470/M122.d \
-./Sources/Marlin/src/gcode/feature/L6470/M906.d \
-./Sources/Marlin/src/gcode/feature/L6470/M916-918.d 
+./Sources/Marlin/src/gcode/feature/L6470/M906.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

@@ -76,9 +76,9 @@ RM := rm -rf
 -include Sources/Marlin/src/lcd/dogm/subdir.mk
 -include Sources/Marlin/src/lcd/e3v2/common/subdir.mk
 -include Sources/Marlin/src/lcd/e3v2/creality/subdir.mk
--include Sources/Marlin/src/lcd/e3v2/enhanced/subdir.mk
 -include Sources/Marlin/src/lcd/e3v2/jyersui/subdir.mk
 -include Sources/Marlin/src/lcd/e3v2/marlinui/subdir.mk
+-include Sources/Marlin/src/lcd/e3v2/proui/subdir.mk
 -include Sources/Marlin/src/lcd/extui/anycubic_chiron/subdir.mk
 -include Sources/Marlin/src/lcd/extui/anycubic_i3mega/subdir.mk
 -include Sources/Marlin/src/lcd/extui/dgus/fysetc/subdir.mk

@@ -56,6 +56,7 @@ CPP_SRCS += \
 ../Sources/Marlin/src/lcd/extui/mks_ui/draw_wifi_list.cpp \
 ../Sources/Marlin/src/lcd/extui/mks_ui/draw_wifi_settings.cpp \
 ../Sources/Marlin/src/lcd/extui/mks_ui/draw_wifi_tips.cpp \
+../Sources/Marlin/src/lcd/extui/mks_ui/draw_z_offset_wizard.cpp \
 ../Sources/Marlin/src/lcd/extui/mks_ui/gb2312_puhui16.cpp \
 ../Sources/Marlin/src/lcd/extui/mks_ui/irq_overrid.cpp \
 ../Sources/Marlin/src/lcd/extui/mks_ui/mks_hardware.cpp \
@@ -121,6 +122,7 @@ OBJS += \
 ./Sources/Marlin/src/lcd/extui/mks_ui/draw_wifi_list.o \
 ./Sources/Marlin/src/lcd/extui/mks_ui/draw_wifi_settings.o \
 ./Sources/Marlin/src/lcd/extui/mks_ui/draw_wifi_tips.o \
+./Sources/Marlin/src/lcd/extui/mks_ui/draw_z_offset_wizard.o \
 ./Sources/Marlin/src/lcd/extui/mks_ui/gb2312_puhui16.o \
 ./Sources/Marlin/src/lcd/extui/mks_ui/irq_overrid.o \
 ./Sources/Marlin/src/lcd/extui/mks_ui/mks_hardware.o \
@@ -186,6 +188,7 @@ CPP_DEPS += \
 ./Sources/Marlin/src/lcd/extui/mks_ui/draw_wifi_list.d \
 ./Sources/Marlin/src/lcd/extui/mks_ui/draw_wifi_settings.d \
 ./Sources/Marlin/src/lcd/extui/mks_ui/draw_wifi_tips.d \
+./Sources/Marlin/src/lcd/extui/mks_ui/draw_z_offset_wizard.d \
 ./Sources/Marlin/src/lcd/extui/mks_ui/gb2312_puhui16.d \
 ./Sources/Marlin/src/lcd/extui/mks_ui/irq_overrid.d \
 ./Sources/Marlin/src/lcd/extui/mks_ui/mks_hardware.d \
