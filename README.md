@@ -10,6 +10,9 @@ On the other hand, as of 2.0.9.3 Marlin now officially supports the full-color L
 ## Current status
 * SD card support not yet working
 
+## Disclaimer
+**Install at your own risk.** I’m not responsible if your prints come out terrible, or turn into a pile of spaghetti, or your printer catches fire, or whatever else.
+
 ## Installation
 ### Main firmware
 1. Download the appropriate firmware for your machine configuration from [releases](https://github.com/kirb/Marlin-H32/releases)
