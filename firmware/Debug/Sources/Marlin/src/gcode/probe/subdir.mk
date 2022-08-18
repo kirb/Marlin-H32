@@ -7,6 +7,7 @@ CPP_SRCS += \
 ../Sources/Marlin/src/gcode/probe/G30.cpp \
 ../Sources/Marlin/src/gcode/probe/G31_G32.cpp \
 ../Sources/Marlin/src/gcode/probe/G38.cpp \
+../Sources/Marlin/src/gcode/probe/M102.cpp \
 ../Sources/Marlin/src/gcode/probe/M401_M402.cpp \
 ../Sources/Marlin/src/gcode/probe/M423.cpp \
 ../Sources/Marlin/src/gcode/probe/M851.cpp \
@@ -16,6 +17,7 @@ OBJS += \
 ./Sources/Marlin/src/gcode/probe/G30.o \
 ./Sources/Marlin/src/gcode/probe/G31_G32.o \
 ./Sources/Marlin/src/gcode/probe/G38.o \
+./Sources/Marlin/src/gcode/probe/M102.o \
 ./Sources/Marlin/src/gcode/probe/M401_M402.o \
 ./Sources/Marlin/src/gcode/probe/M423.o \
 ./Sources/Marlin/src/gcode/probe/M851.o \
@@ -25,6 +27,7 @@ CPP_DEPS += \
 ./Sources/Marlin/src/gcode/probe/G30.d \
 ./Sources/Marlin/src/gcode/probe/G31_G32.d \
 ./Sources/Marlin/src/gcode/probe/G38.d \
+./Sources/Marlin/src/gcode/probe/M102.d \
 ./Sources/Marlin/src/gcode/probe/M401_M402.d \
 ./Sources/Marlin/src/gcode/probe/M423.d \
 ./Sources/Marlin/src/gcode/probe/M851.d \

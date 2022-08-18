@@ -2235,7 +2235,7 @@ void CrealityDWINClass::Menu_Item_Handler(uint8_t menu, uint8_t item, bool draw/
     #if HAS_PREHEAT
       #define _PREHEAT_SUBMENU_CASE(N) case Preheat##N: preheat_submenu((N) - 1, item, TEMP_PREHEAT##N); break;
       REPEAT_1(PREHEAT_COUNT, _PREHEAT_SUBMENU_CASE)
-          #endif
+    #endif
 
     case Motion:
 
@@ -3740,7 +3740,7 @@ void CrealityDWINClass::Menu_Item_Handler(uint8_t menu, uint8_t item, bool draw/
 
     #if HAS_PREHEAT && HAS_HOTEND
 
-    case PreheatHotend:
+      case PreheatHotend:
 
         #define PREHEATHOTEND_BACK 0
         #define PREHEATHOTEND_CONTINUE (PREHEATHOTEND_BACK + 1)

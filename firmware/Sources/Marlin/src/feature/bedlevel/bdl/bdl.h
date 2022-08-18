@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2022 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -19,29 +19,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
+#pragma once
 
-/**
- * stepper/indirection.cpp
- *
- * Stepper motor driver indirection to allow some stepper functions to
- * be done via SPI/I2c instead of direct pin manipulation.
- *
- * Copyright (c) 2015 Dominik Wenger
- */
+#include <stdint.h>
 
-#include "../../inc/MarlinConfig.h"
-#include "indirection.h"
+class BDS_Leveling {
+public:
+  static int8_t config_state;
+  static uint8_t homing;
+  static void echo_name();
+  static void init(uint8_t _sda, uint8_t _scl, uint16_t delay_s);
+  static void process();
+  static float read();
+};
 
-void restore_stepper_drivers() {
-  TERN_(HAS_TRINAMIC_CONFIG, restore_trinamic_drivers());
-}
-
-void reset_stepper_drivers() {
-  TERN_(HAS_TMC26X, tmc26x_init_to_defaults());
-  TERN_(HAS_TRINAMIC_CONFIG, reset_trinamic_drivers());
-}
-
-#if ENABLED(SOFTWARE_DRIVER_ENABLE)
-  // Flags to optimize XYZ Enabled state
-  xyz_bool_t axis_sw_enabled; // = { false, false, false }
-#endif
+extern BDS_Leveling bdl;

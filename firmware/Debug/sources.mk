@@ -66,7 +66,6 @@ Sources/Marlin/src/gcode/feature/digipot \
 Sources/Marlin/src/gcode/feature/filwidth \
 Sources/Marlin/src/gcode/feature/fwretract \
 Sources/Marlin/src/gcode/feature/i2c \
-Sources/Marlin/src/gcode/feature/L6470 \
 Sources/Marlin/src/gcode/feature/leds \
 Sources/Marlin/src/gcode/feature/macro \
 Sources/Marlin/src/gcode/feature/mixing \
@@ -135,7 +134,6 @@ Sources/Marlin/src/lcd/tft_io \
 Sources/Marlin/src/lcd/touch \
 Sources/Marlin/src/libs \
 Sources/Marlin/src/libs/heatshrink \
-Sources/Marlin/src/libs/L64XX \
 Sources/Marlin/src/module \
 Sources/Marlin/src/module/stepper \
 Sources/Marlin/src/sd \

@@ -5,7 +5,7 @@ The H32, specifically the Huada Semiconductor (HDSC) HC32F460PETB, is built on t
 
 On the other hand, as of 2.0.9.3 Marlin now officially supports the full-color LCDs used by the Ender 3 v2 and Aquila X2, so fewer patches are required to get Marlin working on these printers.
 
-**Current version:** Marlin 2.0.9.5
+**Current version:** Marlin 2.1.1
 
 ## Current status
 * SD card support not yet working
@@ -24,7 +24,7 @@ On the other hand, as of 2.0.9.3 Marlin now officially supports the full-color L
 You shouldn’t need to do this with every firmware update. If you have weird issues with the LCD, you probably need to update its firmware.
 
 1. If you’re not sure how your SD card is formatted, format it as FAT32 with cluster size set to 4096 (4K). The display is more fussy about this than the main firmware.
-2. Download the display firmware (DWIN_SET) from the [Marlin configurations repo](https://github.com/MarlinFirmware/Configurations/archive/refs/heads/release-2.0.9.5.zip).
+2. Download the display firmware (DWIN_SET) from the [Marlin configurations repo](https://github.com/MarlinFirmware/Configurations/archive/refs/heads/release-2.1.1.zip).
 3. Extract the zip file, and navigate to **config/examples/Creality/Ender-3 V2**. Copy **DWIN_SET** to the root of your SD card.
 5. With the printer off, unscrew the 4 screws on the rear of the display. Carefully open the back, ideally using a plastic pry tool to not damage the plastic.
 6. Insert the SD card into the slot found on the LCD board.

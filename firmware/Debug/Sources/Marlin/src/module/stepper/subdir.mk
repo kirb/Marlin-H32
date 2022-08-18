@@ -4,19 +4,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../Sources/Marlin/src/module/stepper/L64xx.cpp \
 ../Sources/Marlin/src/module/stepper/TMC26X.cpp \
 ../Sources/Marlin/src/module/stepper/indirection.cpp \
 ../Sources/Marlin/src/module/stepper/trinamic.cpp 
 
 OBJS += \
-./Sources/Marlin/src/module/stepper/L64xx.o \
 ./Sources/Marlin/src/module/stepper/TMC26X.o \
 ./Sources/Marlin/src/module/stepper/indirection.o \
 ./Sources/Marlin/src/module/stepper/trinamic.o 
 
 CPP_DEPS += \
-./Sources/Marlin/src/module/stepper/L64xx.d \
 ./Sources/Marlin/src/module/stepper/TMC26X.d \
 ./Sources/Marlin/src/module/stepper/indirection.d \
 ./Sources/Marlin/src/module/stepper/trinamic.d 

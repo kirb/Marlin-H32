@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2022 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -20,28 +20,28 @@
  *
  */
 
-/**
- * stepper/indirection.cpp
- *
- * Stepper motor driver indirection to allow some stepper functions to
- * be done via SPI/I2c instead of direct pin manipulation.
- *
- * Copyright (c) 2015 Dominik Wenger
- */
+#include "../inc/MarlinConfigPre.h"
 
-#include "../../inc/MarlinConfig.h"
-#include "indirection.h"
+#if ENABLED(MARLIN_TEST_BUILD)
 
-void restore_stepper_drivers() {
-  TERN_(HAS_TRINAMIC_CONFIG, restore_trinamic_drivers());
+#include "../module/endstops.h"
+#include "../module/motion.h"
+#include "../module/planner.h"
+#include "../module/settings.h"
+#include "../module/stepper.h"
+#include "../module/temperature.h"
+
+// Individual tests are localized in each module.
+// Each test produces its own report.
+
+// Startup tests are run at the end of setup()
+void runStartupTests() {
+  // Call post-setup tests here to validate behaviors.
 }
 
-void reset_stepper_drivers() {
-  TERN_(HAS_TMC26X, tmc26x_init_to_defaults());
-  TERN_(HAS_TRINAMIC_CONFIG, reset_trinamic_drivers());
+// Periodic tests are run from within loop()
+void runPeriodicTests() {
+  // Call periodic tests here to validate behaviors.
 }
 
-#if ENABLED(SOFTWARE_DRIVER_ENABLE)
-  // Flags to optimize XYZ Enabled state
-  xyz_bool_t axis_sw_enabled; // = { false, false, false }
-#endif
+#endif // MARLIN_TEST_BUILD

@@ -6,7 +6,6 @@
 CPP_SRCS += \
 ../Sources/Marlin/src/HAL/shared/Delay.cpp \
 ../Sources/Marlin/src/HAL/shared/HAL.cpp \
-../Sources/Marlin/src/HAL/shared/HAL_spi_L6470.cpp \
 ../Sources/Marlin/src/HAL/shared/MinSerial.cpp \
 ../Sources/Marlin/src/HAL/shared/eeprom_api.cpp \
 ../Sources/Marlin/src/HAL/shared/eeprom_if_i2c.cpp \
@@ -17,7 +16,6 @@ CPP_SRCS += \
 OBJS += \
 ./Sources/Marlin/src/HAL/shared/Delay.o \
 ./Sources/Marlin/src/HAL/shared/HAL.o \
-./Sources/Marlin/src/HAL/shared/HAL_spi_L6470.o \
 ./Sources/Marlin/src/HAL/shared/MinSerial.o \
 ./Sources/Marlin/src/HAL/shared/eeprom_api.o \
 ./Sources/Marlin/src/HAL/shared/eeprom_if_i2c.o \
@@ -28,7 +26,6 @@ OBJS += \
 CPP_DEPS += \
 ./Sources/Marlin/src/HAL/shared/Delay.d \
 ./Sources/Marlin/src/HAL/shared/HAL.d \
-./Sources/Marlin/src/HAL/shared/HAL_spi_L6470.d \
 ./Sources/Marlin/src/HAL/shared/MinSerial.d \
 ./Sources/Marlin/src/HAL/shared/eeprom_api.d \
 ./Sources/Marlin/src/HAL/shared/eeprom_if_i2c.d \

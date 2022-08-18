@@ -16,6 +16,7 @@ RM := rm -rf
 -include Sources/Marlin/src/core/subdir.mk
 -include Sources/Marlin/src/feature/adc/subdir.mk
 -include Sources/Marlin/src/feature/bedlevel/abl/subdir.mk
+-include Sources/Marlin/src/feature/bedlevel/bdl/subdir.mk
 -include Sources/Marlin/src/feature/bedlevel/mbl/subdir.mk
 -include Sources/Marlin/src/feature/bedlevel/subdir.mk
 -include Sources/Marlin/src/feature/bedlevel/ubl/subdir.mk
@@ -45,7 +46,6 @@ RM := rm -rf
 -include Sources/Marlin/src/gcode/feature/filwidth/subdir.mk
 -include Sources/Marlin/src/gcode/feature/fwretract/subdir.mk
 -include Sources/Marlin/src/gcode/feature/i2c/subdir.mk
--include Sources/Marlin/src/gcode/feature/L6470/subdir.mk
 -include Sources/Marlin/src/gcode/feature/leds/subdir.mk
 -include Sources/Marlin/src/gcode/feature/macro/subdir.mk
 -include Sources/Marlin/src/gcode/feature/mixing/subdir.mk
@@ -114,7 +114,6 @@ RM := rm -rf
 -include Sources/Marlin/src/lcd/tft/subdir.mk
 -include Sources/Marlin/src/lcd/touch/subdir.mk
 -include Sources/Marlin/src/libs/heatshrink/subdir.mk
--include Sources/Marlin/src/libs/L64XX/subdir.mk
 -include Sources/Marlin/src/libs/subdir.mk
 -include Sources/Marlin/src/module/stepper/subdir.mk
 -include Sources/Marlin/src/module/subdir.mk
