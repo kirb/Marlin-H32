@@ -23,7 +23,7 @@ jobs:
         cp firmware/Configuration\ Files/Aquila\ Templates/Default-NoProbe/Configuration.h firmware/Sources/Marlin/Configuration.h
         cp firmware/Configuration\ Files/Aquila\ Templates/Default-NoProbe/Configuration_adv.h firmware/Sources/Marlin/Configuration_adv.h
         cd firmware/Debug
-        make all
+        make all -j$(nproc) -Otarget
       env:
         AQUILA_VER: ${{ matrix.chip }}
     - name: Get release
@@ -62,7 +62,7 @@ jobs:
         if ($HS); then TEMP=; else TEMP='\/\/'; fi;
         sed -i "s/[^ ]*#define BLTOUCH_HS_MODE/$TEMP#define BLTOUCH_HS_MODE/g" firmware/Sources/Marlin/Configuration_adv.h
         cd firmware/Debug
-        make all
+        make all -j$(nproc) -Otarget
       env:
         AQUILA_VER: ${{ matrix.chip }}
         GRID: ${{ matrix.grid }}
@@ -99,7 +99,7 @@ jobs:
         cp firmware/Configuration\ Files/Aquila\ Templates/ManualMesh-3x3/Configuration_adv.h firmware/Sources/Marlin/Configuration_adv.h
         sed -i "s/#define GRID_MAX_POINTS_X.*/#define GRID_MAX_POINTS_X $GRID/g" firmware/Sources/Marlin/Configuration.h
         cd firmware/Debug
-        make all
+        make all -j$(nproc) -Otarget
       env:
         AQUILA_VER: ${{ matrix.chip }}
         GRID: ${{ matrix.grid }}
@@ -139,7 +139,7 @@ jobs:
   #       if ($HS); then TEMP=; else TEMP='\/\/'; fi;
   #       sed -i "s/[^ ]*#define BLTOUCH_HS_MODE/$TEMP#define BLTOUCH_HS_MODE/g" firmware/Sources/Marlin/Configuration_adv.h
   #       cd firmware/Debug
-  #       make all
+  #       make all -j$(nproc) -Otarget
   #     env:
   #       AQUILA_VER: ${{ matrix.chip }}
   #       GRID: ${{ matrix.grid }}
@@ -176,7 +176,7 @@ jobs:
         cp firmware/Configuration\ Files/Aquila\ Templates/UBL-NoProbe-3x3/Configuration_adv.h firmware/Sources/Marlin/Configuration_adv.h
         sed -i "s/#define GRID_MAX_POINTS_X.*/#define GRID_MAX_POINTS_X $GRID/g" firmware/Sources/Marlin/Configuration.h
         cd firmware/Debug
-        make all
+        make all -j$(nproc) -Otarget
       env:
         AQUILA_VER: ${{ matrix.chip }}
         GRID: ${{ matrix.grid }}
