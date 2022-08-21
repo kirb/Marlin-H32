@@ -27,6 +27,10 @@
 
 #include "env_validate.h"
 
+#ifndef HC32F46x
+  #error "Oops! Select an HC32F46x board in 'options > c/c++->defines.'"
+#endif
+
 #if HAS_MULTI_HOTEND || E_STEPPERS > 1
   #error "Creality v4 only supports 1 hotend / E stepper."
 #endif
@@ -161,10 +165,10 @@
 //
 // SD Card
 //
-#define SD_DETECT_PIN                       PC7
-#define SDCARD_CONNECTION                ONBOARD
-#define ONBOARD_SPI_DEVICE                     1
-#define ONBOARD_SD_CS_PIN                   PA4   // SDSS
+#define SD_DETECT_PIN                       PA10
+//#define SDCARD_CONNECTION                ONBOARD
+//#define ONBOARD_SPI_DEVICE                     1
+//#define ONBOARD_SD_CS_PIN                   PA4   // SDSS
 #define SDIO_SUPPORT
 #define NO_SD_HOST_DRIVE                          // This board's SD is only seen by the printer
 

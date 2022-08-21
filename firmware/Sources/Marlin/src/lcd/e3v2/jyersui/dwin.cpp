@@ -721,7 +721,7 @@ void CrealityDWINClass::Draw_Print_Filename(const bool reset/*=false*/) {
 }
 
 void CrealityDWINClass::Draw_Print_ProgressBar() {
-  uint8_t printpercent = /*TODO: sdprint ? card.percentDone() :*/ (ui._get_progress() / 100);
+  uint8_t printpercent = sdprint ? card.percentDone() : (ui._get_progress() / 100);
   DWIN_ICON_Show(ICON, ICON_Bar, 15, 93);
   DWIN_Draw_Rectangle(1, BarFill_Color, 16 + printpercent * 240 / 100, 93, 256, 113);
   DWIN_Draw_IntValue(true, true, 0, DWIN_FONT_MENU, GetColor(eeprom_settings.progress_percent, Percent_Color), Color_Bg_Black, 3, 109, 133, printpercent);
@@ -767,7 +767,6 @@ void CrealityDWINClass::Draw_Print_confirm() {
 }
 
 void CrealityDWINClass::Draw_SD_Item(uint8_t item, uint8_t row) {
-  /* TODO:
   if (item == 0)
     Draw_Menu_Item(0, ICON_Back, card.flag.workDirIsRoot ? F("Back") : F(".."));
   else {
@@ -786,7 +785,6 @@ void CrealityDWINClass::Draw_SD_Item(uint8_t item, uint8_t row) {
     name[len] = '\0';
     Draw_Menu_Item(row, card.flag.filenameIsDir ? ICON_More : ICON_File, name);
   }
-  */
 }
 
 void CrealityDWINClass::Draw_SD_List(bool removed/*=false*/) {
@@ -795,16 +793,15 @@ void CrealityDWINClass::Draw_SD_List(bool removed/*=false*/) {
   selection = 0;
   scrollpos = 0;
   process = File;
-  /* TODO:
   if (card.isMounted() && !removed) {
     LOOP_L_N(i, _MIN(card.get_num_Files() + 1, TROWS))
       Draw_SD_Item(i, i);
   }
-  else {*/
+  else {
     Draw_Menu_Item(0, ICON_Back, F("Back"));
     DWIN_Draw_Rectangle(1, Color_Bg_Red, 10, MBASE(3) - 10, DWIN_WIDTH - 10, MBASE(4));
     DWIN_Draw_String(false, font16x32, Color_Yellow, Color_Bg_Red, ((DWIN_WIDTH) - 8 * 16) / 2, MBASE(3), F("No Media"));
-  // TODO: }
+  }
   DWIN_Draw_Rectangle(1, GetColor(eeprom_settings.cursor_color, Rectangle_Color), 0, MBASE(0) - 18, 14, MBASE(0) + 33);
 }
 
@@ -4030,7 +4027,7 @@ void CrealityDWINClass::Main_Menu_Control() {
   }
   else if (encoder_diffState == ENCODER_DIFF_ENTER)
     switch (selection) {
-      case PAGE_PRINT: /*TODO: card.mount();*/ Draw_SD_List(); break;
+      case PAGE_PRINT: card.mount(); Draw_SD_List(); break;
       case PAGE_PREPARE: Draw_Menu(Prepare); break;
       case PAGE_CONTROL: Draw_Menu(Control); break;
       case PAGE_INFO_LEVELING: Draw_Menu(TERN(HAS_MESH, Leveling, InfoMain)); break;
@@ -4171,7 +4168,6 @@ void CrealityDWINClass::Option_Control() {
 }
 
 void CrealityDWINClass::File_Control() {
-  /* TODO:
   EncoderState encoder_diffState = Encoder_ReceiveAnalyze();
   static uint8_t filescrl = 0;
   if (encoder_diffState == ENCODER_DIFF_NO) {
@@ -4256,7 +4252,6 @@ void CrealityDWINClass::File_Control() {
       }
     }
   }
-  */
   DWIN_UpdateLCD();
 }
 
@@ -4282,7 +4277,7 @@ void CrealityDWINClass::Print_Screen_Control() {
           if (sdprint) {
             wait_for_user = false;
             #if ENABLED(PARK_HEAD_ON_PAUSE)
-              // TODO: card.startOrResumeFilePrinting();
+              card.startOrResumeFilePrinting();
               TERN_(POWER_LOSS_RECOVERY, recovery.prepare());
             #else
               char cmd[20];
@@ -4572,7 +4567,7 @@ void CrealityDWINClass::Start_Print(bool sd) {
           card.selectFileByName(fname);
         }
       #endif
-      // TODO: strcpy(filename, card.longest_filename());
+      strcpy(filename, card.longest_filename());
     }
     else
       strcpy_P(filename, PSTR("Host Print"));
@@ -4614,7 +4609,7 @@ void MarlinUI::update() { CrealityDWIN.Update(); }
 
 void CrealityDWINClass::State_Update() {
   if ((print_job_timer.isRunning() || print_job_timer.isPaused()) != printing) {
-    if (!printing) Start_Print(/* TODO: card.isFileOpen() ||*/ TERN0(POWER_LOSS_RECOVERY, recovery.valid()));
+    if (!printing) Start_Print(card.isFileOpen() || TERN0(POWER_LOSS_RECOVERY, recovery.valid()));
     else Stop_Print();
   }
   if (print_job_timer.isPaused() != paused) {
@@ -4668,13 +4663,12 @@ void CrealityDWINClass::Screen_Update() {
     }
   }
 
-  /* TODO:
   static bool mounted = card.isMounted();
   if (mounted != card.isMounted()) {
     mounted = card.isMounted();
     if (process == File)
       Draw_SD_List();
-  }*/
+  }
 
   #if HAS_HOTEND
     static int16_t hotendtarget = -1;
