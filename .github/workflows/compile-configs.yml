@@ -117,47 +117,47 @@ jobs:
         asset_path: firmware/Debug/firmware.bin
         asset_name: ${{ steps.build_configs.outputs.filename }}
         asset_content_type: application/x-binary
-  # Build-UBL-BLTouch:
-  #   name: Build BL-Touch UBL Files
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       chip: [H32]
-  #       grid: [10,15]
-  #       highspeed: [true,false]
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - uses: carlosperate/arm-none-eabi-gcc-action@v1
-  #   - name: Compile firmware
-  #     id: build_configs
-  #     run: |
-  #       if ($HS); then HSTMP=-HS; else HSTMP=; fi;
-  #       echo "::set-output name=filename::UBL-BLTouch-${GRID}x${GRID}${HSTMP}-${AQUILA_VER}.bin"
-  #       cp firmware/Configuration\ Files/Aquila\ Templates/UBL-BLTouch-10x10/Configuration.h firmware/Sources/Marlin/Configuration.h
-  #       cp firmware/Configuration\ Files/Aquila\ Templates/UBL-BLTouch-10x10/Configuration_adv.h firmware/Sources/Marlin/Configuration_adv.h
-  #       sed -i "s/#define GRID_MAX_POINTS_X.*/#define GRID_MAX_POINTS_X $GRID/g" firmware/Sources/Marlin/Configuration.h
-  #       if ($HS); then TEMP=; else TEMP='\/\/'; fi;
-  #       sed -i "s/[^ ]*#define BLTOUCH_HS_MODE/$TEMP#define BLTOUCH_HS_MODE/g" firmware/Sources/Marlin/Configuration_adv.h
-  #       cd firmware/Debug
-  #       make all -j$(nproc) -Otarget
-  #     env:
-  #       AQUILA_VER: ${{ matrix.chip }}
-  #       GRID: ${{ matrix.grid }}
-  #       HS: ${{ matrix.highspeed }}
-  #   - name: Get release
-  #     id: get_release
-  #     uses: bruceadams/get-release@v1.2.2
-  #     env:
-  #       GITHUB_TOKEN: ${{ github.token }}
-  #   - name: Upload Release Asset
-  #     uses: actions/upload-release-asset@v1
-  #     env:
-  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #     with:
-  #       upload_url: ${{ steps.get_release.outputs.upload_url }}
-  #       asset_path: firmware/Debug/firmware.bin
-  #       asset_name: ${{ steps.build_configs.outputs.filename }}
-  #       asset_content_type: application/x-binary
+  Build-UBL-BLTouch:
+    name: Build BL-Touch UBL Files
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        chip: [H32]
+        grid: [10,15]
+        highspeed: [true,false]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: carlosperate/arm-none-eabi-gcc-action@v1
+    - name: Compile firmware
+      id: build_configs
+      run: |
+        if ($HS); then HSTMP=-HS; else HSTMP=; fi;
+        echo "::set-output name=filename::UBL-BLTouch-${GRID}x${GRID}${HSTMP}-${AQUILA_VER}.bin"
+        cp firmware/Configuration\ Files/Aquila\ Templates/UBL-BLTouch-10x10/Configuration.h firmware/Sources/Marlin/Configuration.h
+        cp firmware/Configuration\ Files/Aquila\ Templates/UBL-BLTouch-10x10/Configuration_adv.h firmware/Sources/Marlin/Configuration_adv.h
+        sed -i "s/#define GRID_MAX_POINTS_X.*/#define GRID_MAX_POINTS_X $GRID/g" firmware/Sources/Marlin/Configuration.h
+        if ($HS); then TEMP=; else TEMP='\/\/'; fi;
+        sed -i "s/[^ ]*#define BLTOUCH_HS_MODE/$TEMP#define BLTOUCH_HS_MODE/g" firmware/Sources/Marlin/Configuration_adv.h
+        cd firmware/Debug
+        make all -j$(nproc) -Otarget
+      env:
+        AQUILA_VER: ${{ matrix.chip }}
+        GRID: ${{ matrix.grid }}
+        HS: ${{ matrix.highspeed }}
+    - name: Get release
+      id: get_release
+      uses: bruceadams/get-release@v1.2.2
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release.outputs.upload_url }}
+        asset_path: firmware/Debug/firmware.bin
+        asset_name: ${{ steps.build_configs.outputs.filename }}
+        asset_content_type: application/x-binary
   Build-UBL-NoProbe:
     name: Build NoProbe UBL Files
     runs-on: ubuntu-latest
