@@ -6,4 +6,9 @@ cp -a firmware/Configuration\ Files/Aquila\ Templates/BLTouch-3x3/Configuration.
 cp -a firmware/Configuration\ Files/Aquila\ Templates/BLTouch-3x3/Configuration_adv.h firmware/Sources/Marlin/Configuration_adv.h
 cd firmware/Debug
 make all -j$(nproc)
-cp firmware.bin /media/$USER/AQUILA/firmware
+
+if [[ -d /media/$USER/AQUILA/firmware ]]; then
+	cp firmware.bin /media/$USER/AQUILA/firmware
+	sync
+	udisksctl unmount -fb $(findmnt -nM /media/$USER/AQUILA -o SOURCE) 
+fi
